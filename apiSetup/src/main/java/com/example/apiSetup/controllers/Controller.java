@@ -28,4 +28,12 @@ public class Controller {
         return aviationApi.getAviationData();
     }
 
+    @GetMapping("/getFlights/{source}/{destination}")
+    public String getFlights(
+            @PathVariable("source") String source,
+            @PathVariable("destination") String destination
+    ){
+        // TODO: return a list of flights
+        return "";
+    }
 }
