@@ -12,8 +12,10 @@ import java.util.List;
 
 @Service
 public class AviationApi {
-    public List<FlightData> getAviationData(String source, String destination,String departure, String ret){
+    public List<FlightData> getAviationData(String source, String destination, String departure, String ret){
         FlightOfferSearch[] flightOffersSearches = new FlightOfferSearch[0];
+        // TODO: don't hardcode secrets
+        // TODO: include adults and max as parameters from frontend
         Amadeus amadeus = Amadeus
                 .builder("ZZkbSwWOBAj4nNKZ4XRf5aynNYYjVWJZ", "8ydmsaPAGizoKCmA")
                 .setLogLevel("debug") // or warn
@@ -25,7 +27,7 @@ public class AviationApi {
                             .and("departureDate", departure)//YYYY-MM-DD
                             .and("returnDate", ret)
                             .and("adults", 2)
-                            .and("max", 1));
+                            .and("max", 10));
         }
         catch (Exception e){
             System.out.println(e.getMessage());

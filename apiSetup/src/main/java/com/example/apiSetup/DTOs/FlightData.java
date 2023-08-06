@@ -10,9 +10,6 @@ public class FlightData {
 //    private String duration; // need to do string operations
     private String price;
 
-    public FlightData() {
-    }
-
     public List<Journey> getJourneys() {
         return journeys;
     }

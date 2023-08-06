@@ -15,38 +15,18 @@ import java.util.List;
 
 @Service
 public class WeatherApi {
-    public String getWeatherData(String destination){
-        // search flights for dest arrival timee
-        String destArrivalTimeAndDate = "";
-        AviationApi aviationApi = new AviationApi();
-        List<FlightData> flightData = aviationApi.getAviationData("SYD",destination,"2023-08-17","2023-08-21");
-        for(FlightData flights : flightData){
-            for(Journey journey : flights.getJourneys()){
-                if(journey.getArrivalAirport().equals("BKK")){
-                    destArrivalTimeAndDate = journey.getArrivalScheduledTime();
-                }
-            }
-        }
-        String arrivalDateString = destArrivalTimeAndDate.substring(0,10);
-        String arrivalTimeString = destArrivalTimeAndDate.substring(12);
-
-        LocalDate currentDate = LocalDate.now();
-        LocalDate arrivalDate = LocalDate.parse(arrivalDateString);
-        long differenceBetween = ChronoUnit.DAYS.between(currentDate,arrivalDate);
-
+    public WeatherData getWeatherData(String destination, String arrivalDate, long timeDifference){
         String returnedData = "";
 
-        if (differenceBetween < 14){// 14-day forecast
+        if (timeDifference < 14){
+            // 14-day forecast
             returnedData = Request.makeRequest("http://api.weatherapi.com/v1/forecast.json?key=812ae5e12239439693d140857233107&q=" + destination +"&days=10&aqi=no&alerts=no");
         } else {
             //future
             returnedData = Request.makeRequest("http://api.weatherapi.com/v1/future.json?key=812ae5e12239439693d140857233107&q=" + destination + "&dt=" + arrivalDate);
-            System.out.println(returnedData);
-            // populate weather DTO
-            JSONObject obj = new JSONObject(returnedData);
-//            System.out.println(obj.getJsonObject("forecast").get("forecastday"));
         }
-        return returnedData;
+
+        return parseData(returnedData, arrivalDate);
     }
 
     public WeatherData parseData(String data, String date) {
@@ -86,6 +66,7 @@ public class WeatherApi {
                         obj.get("avghumidity").getAsString(),
                         obj.get("condition").getAsJsonObject().get("icon").getAsString()
                 );
+                break;
             }
         }
 
