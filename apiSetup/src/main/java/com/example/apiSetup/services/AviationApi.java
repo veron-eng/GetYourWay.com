@@ -45,25 +45,22 @@ public class AviationApi {
         List<FlightData> flightDataList = new ArrayList<>();
         for (FlightOfferSearch flightOffersSearch: flightOffersSearches){
             FlightData flightData = new FlightData();
-            flightData.setDate("flight date");
-            flightData.setFlightNumber("flight number");
-            flightData.setDuration("duration");
+            flightData.setFlightNumber(flightOffersSearch.getItineraries()[0].getSegments()[0].getCarrierCode()+flightOffersSearch.getItineraries()[0].getSegments()[0].getNumber());
+            flightData.setDepartureScheduledTime(flightOffersSearch.getItineraries()[0].getSegments()[0].getDeparture().getAt());
+            flightData.setDepartureAirport(flightOffersSearch.getItineraries()[0].getSegments()[0].getDeparture().getIataCode());
+            flightData.setArrivalScheduledTime(flightOffersSearch.getItineraries()[0].getSegments()[0].getArrival().getAt());
+            flightData.setArrivalAirport(flightOffersSearch.getItineraries()[0].getSegments()[0].getArrival().getIataCode());
+            flightData.setDuration(flightOffersSearch.getItineraries()[0].getSegments()[0].getDuration().substring(2));
             flightData.setPrice(flightOffersSearch.getPrice().getTotal());
-            flightData.setDepartureAirport("airport");
-            flightData.setArrivalScheduledTime("time");
-            flightData.setArrivalAirport("arrival airport");
-            flightData.setDepartureScheduledTime("depart time");
 
             //FlightOfferSearch a = new FlightOfferSearch();
 
 
             //FlightOfferSearch.Itinerary itinerary = flightOffersSearch.new Itinerary();
 
-            //System.out.println(flightOffersSearch.);
+//            System.out.println(flightOffersSearch.getItineraries()[0].getSegments()[0].getCarrierCode()+flightOffersSearch.getItineraries()[0].getSegments()[0].getNumber());
 
             flightDataList.add(flightData);
-
-
         }
 
 

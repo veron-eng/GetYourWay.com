@@ -1,24 +1,19 @@
 package com.example.apiSetup.DTOs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FlightData {
-    private String date;
     private String departureAirport;
     private String departureScheduledTime;
     private String arrivalAirport;
     private String arrivalScheduledTime;
+//    List<Flight> flights = new ArrayList<>();
     private String flightNumber;  //  concat flight carrier code and number
     private String duration; // need to do string operations
     private String price;
 
     public FlightData() {
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getDepartureAirport() {
