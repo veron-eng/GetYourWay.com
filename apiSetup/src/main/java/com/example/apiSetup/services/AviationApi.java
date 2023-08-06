@@ -5,6 +5,7 @@ import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
 import com.amadeus.shopping.FlightOffersSearch;
+import com.example.apiSetup.DTOs.Flight;
 import com.example.apiSetup.DTOs.FlightData;
 import com.example.apiSetup.utilities.Request;
 import com.google.gson.Gson;
@@ -34,8 +35,7 @@ public class AviationApi {
         catch (Exception e){
             System.out.println(e.getMessage());
         }
-//        Gson gson = new Gson();
-//        return gson.toJson(flightOffersSearches);
+
         return populateFlightData(flightOffersSearches);
     }
 
@@ -45,20 +45,25 @@ public class AviationApi {
         List<FlightData> flightDataList = new ArrayList<>();
         for (FlightOfferSearch flightOffersSearch: flightOffersSearches){
             FlightData flightData = new FlightData();
-            flightData.setFlightNumber(flightOffersSearch.getItineraries()[0].getSegments()[0].getCarrierCode()+flightOffersSearch.getItineraries()[0].getSegments()[0].getNumber());
-            flightData.setDepartureScheduledTime(flightOffersSearch.getItineraries()[0].getSegments()[0].getDeparture().getAt());
-            flightData.setDepartureAirport(flightOffersSearch.getItineraries()[0].getSegments()[0].getDeparture().getIataCode());
-            flightData.setArrivalScheduledTime(flightOffersSearch.getItineraries()[0].getSegments()[0].getArrival().getAt());
-            flightData.setArrivalAirport(flightOffersSearch.getItineraries()[0].getSegments()[0].getArrival().getIataCode());
-            flightData.setDuration(flightOffersSearch.getItineraries()[0].getSegments()[0].getDuration().substring(2));
+
+            List<Flight> flights = new ArrayList<>();
+
+            for (FlightOfferSearch.Itinerary itinerary : flightOffersSearch.getItineraries()) {
+
+
+                for (FlightOfferSearch.SearchSegment segment : itinerary.getSegments()) {
+
+                    Flight flight = new Flight(segment.getDeparture().getIataCode(), segment.getDeparture().getAt(), segment.getArrival().getIataCode(), segment.getArrival().getAt(), segment.getDuration(), segment.getCarrierCode() + segment.getNumber());
+                    flights.add(flight);
+                }
+
+            }
+            flightData.setFlights(flights);
+
+
             flightData.setPrice(flightOffersSearch.getPrice().getTotal());
 
-            //FlightOfferSearch a = new FlightOfferSearch();
-
-
-            //FlightOfferSearch.Itinerary itinerary = flightOffersSearch.new Itinerary();
-
-//            System.out.println(flightOffersSearch.getItineraries()[0].getSegments()[0].getCarrierCode()+flightOffersSearch.getItineraries()[0].getSegments()[0].getNumber());
+//            System.out.println(flightOffersSearch.getItineraries()[0].getSegments()[1].getArrival().getIataCode());
 
             flightDataList.add(flightData);
         }
