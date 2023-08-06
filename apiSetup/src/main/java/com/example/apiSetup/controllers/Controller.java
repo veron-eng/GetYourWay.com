@@ -20,9 +20,9 @@ public class Controller {
         return weatherApi.getWeatherData(query);
     }
 
-    @GetMapping("/getAviationData")
-    public String getAviationData(){
-        return aviationApi.getAviationData();
+    @GetMapping("/getAviationData/{source}/{destination}/{departure}/{ret}")
+    public String getAviationData(@PathVariable("source") String source, @PathVariable("destination") String destination, @PathVariable("departure") String departure, @PathVariable("ret") String ret){
+        return aviationApi.getAviationData(source,destination,departure,ret);
     }
 
 //    @GetMapping("/getFlights/{source}/{destination}")

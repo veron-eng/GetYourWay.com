@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class AviationApi {
-    public String getAviationData(){
+    public String getAviationData(String source, String destination,String departure, String ret){
         FlightOfferSearch[] flightOffersSearches = new FlightOfferSearch[0];
         Amadeus amadeus = Amadeus
                 .builder("ZZkbSwWOBAj4nNKZ4XRf5aynNYYjVWJZ", "8ydmsaPAGizoKCmA")
@@ -19,10 +19,10 @@ public class AviationApi {
                 .build();
         try{
             flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
-                    Params.with("originLocationCode", "SYD")
-                            .and("destinationLocationCode", "BKK")
-                            .and("departureDate", "2023-11-01")
-                            .and("returnDate", "2023-11-08")
+                    Params.with("originLocationCode", source)
+                            .and("destinationLocationCode", destination)
+                            .and("departureDate", departure)//YYYY-MM-DD
+                            .and("returnDate", ret)
                             .and("adults", 2)
                             .and("max", 3));
         }
