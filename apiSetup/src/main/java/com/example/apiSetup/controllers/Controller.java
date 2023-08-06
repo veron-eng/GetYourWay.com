@@ -1,12 +1,15 @@
 package com.example.apiSetup.controllers;
 
 import com.amadeus.resources.FlightOfferSearch;
+import com.example.apiSetup.DTOs.FlightData;
 import com.example.apiSetup.services.AviationApi;
 import com.example.apiSetup.services.WeatherApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class Controller {
@@ -21,7 +24,7 @@ public class Controller {
     }
 
     @GetMapping("/getAviationData/{source}/{destination}/{departure}/{ret}")
-    public String getAviationData(@PathVariable("source") String source, @PathVariable("destination") String destination, @PathVariable("departure") String departure, @PathVariable("ret") String ret){
+    public List<FlightData> getAviationData(@PathVariable("source") String source, @PathVariable("destination") String destination, @PathVariable("departure") String departure, @PathVariable("ret") String ret){
         return aviationApi.getAviationData(source,destination,departure,ret);
     }
 
