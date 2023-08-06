@@ -1,5 +1,6 @@
 package com.example.apiSetup.controllers;
 
+import com.amadeus.resources.FlightOfferSearch;
 import com.example.apiSetup.services.AviationApi;
 import com.example.apiSetup.services.WeatherApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,6 @@ public class Controller {
     WeatherApi weatherApi;
     @Autowired
     AviationApi aviationApi;
-    @GetMapping("/helloWorld")
-    public String helloWorld(){
-        return weatherApi.helloWorld();
-    }
 
     @GetMapping("/getWeatherData/{query}")
     public String getWeatherData(@PathVariable("query") String query){
@@ -28,12 +25,12 @@ public class Controller {
         return aviationApi.getAviationData();
     }
 
-    @GetMapping("/getFlights/{source}/{destination}")
-    public String getFlights(
-            @PathVariable("source") String source,
-            @PathVariable("destination") String destination
-    ){
-        // TODO: return a list of flights
-        return "";
-    }
+//    @GetMapping("/getFlights/{source}/{destination}")
+//    public String getFlights(
+//            @PathVariable("source") String source,
+//            @PathVariable("destination") String destination
+//    ){
+//        // TODO: return journey data
+//        return "";
+//    }
 }

@@ -1,14 +1,35 @@
 package com.example.apiSetup.services;
 
+import com.amadeus.Amadeus;
+import com.amadeus.Params;
+import com.amadeus.exceptions.ResponseException;
+import com.amadeus.resources.FlightOfferSearch;
+import com.example.apiSetup.utilities.Request;
+import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
 public class AviationApi {
     public String getAviationData(){
-        String uri = "http://api.aviationstack.com/v1/flights?access_key=2ba1e53c953764139a8f49f898ac0116";
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(uri,String.class);
-        return result;
+        FlightOfferSearch[] flightOffersSearches = new FlightOfferSearch[0];
+        Amadeus amadeus = Amadeus
+                .builder("ZZkbSwWOBAj4nNKZ4XRf5aynNYYjVWJZ", "8ydmsaPAGizoKCmA")
+                .setLogLevel("debug") // or warn
+                .build();
+        try{
+            flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
+                    Params.with("originLocationCode", "SYD")
+                            .and("destinationLocationCode", "BKK")
+                            .and("departureDate", "2023-11-01")
+                            .and("returnDate", "2023-11-08")
+                            .and("adults", 2)
+                            .and("max", 3));
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        Gson gson = new Gson();
+        return gson.toJson(flightOffersSearches);
     }
 }
