@@ -5,7 +5,7 @@ import java.util.List;
 
 public class FlightData {
 
-    List<Flight> flights = new ArrayList<>();
+    List<Journey> journeys = new ArrayList<>();
 //    private String flightNumber;  //  concat flight carrier code and number
 //    private String duration; // need to do string operations
     private String price;
@@ -13,14 +13,13 @@ public class FlightData {
     public FlightData() {
     }
 
-    public List<Flight> getFlights() {
-        return flights;
+    public List<Journey> getJourneys() {
+        return journeys;
     }
 
-    public void setFlights(List<Flight> flights) {
-        this.flights = flights;
+    public void setJourneys(List<Journey> journeys) {
+        this.journeys = journeys;
     }
-
 
     public String getPrice() {
         return price;

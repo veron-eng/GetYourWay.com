@@ -1,6 +1,9 @@
 package com.example.apiSetup.utilities;
 
+import com.example.apiSetup.DTOs.FlightData;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 public class Request {
     public static String makeRequest(String uri){

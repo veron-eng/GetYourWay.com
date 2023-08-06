@@ -1,6 +1,6 @@
 package com.example.apiSetup.DTOs;
 
-public class Flight {
+public class Journey {
     private String departureAirport;
     private String departureScheduledTime;
     private String arrivalAirport;
@@ -9,7 +9,7 @@ public class Flight {
     private String duration;
     private String flightNumber;
 
-    public Flight(String departureAirport, String departureScheduledTime, String arrivalAirport, String arrivalScheduledTime, String duration, String flightNumber) {
+    public Journey(String departureAirport, String departureScheduledTime, String arrivalAirport, String arrivalScheduledTime, String duration, String flightNumber) {
         this.departureAirport = departureAirport;
         this.departureScheduledTime = departureScheduledTime;
         this.arrivalAirport = arrivalAirport;
@@ -18,9 +18,9 @@ public class Flight {
         this.flightNumber = flightNumber;
     }
 
-    // one-way : 1
-    // return : 2
-    // long distance one-way : 4
+    // one-way : 1 - 0 index
+    // return : 2 - 0 index
+    // long distance one-way : 4 - 1
     // long distance return : 8
 
 

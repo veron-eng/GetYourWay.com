@@ -18,9 +18,9 @@ public class Controller {
     @Autowired
     AviationApi aviationApi;
 
-    @GetMapping("/getWeatherData/{query}")
-    public String getWeatherData(@PathVariable("query") String query){
-        return weatherApi.getWeatherData(query);
+    @GetMapping("/getWeatherData/{destination}")
+    public String getWeatherData(@PathVariable("destination") String destination){
+        return weatherApi.getWeatherData(destination);
     }
 
     @GetMapping("/getAviationData/{source}/{destination}/{departure}/{ret}")

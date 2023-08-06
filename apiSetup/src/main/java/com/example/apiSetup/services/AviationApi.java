@@ -2,15 +2,10 @@ package com.example.apiSetup.services;
 
 import com.amadeus.Amadeus;
 import com.amadeus.Params;
-import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
-import com.amadeus.shopping.FlightOffersSearch;
-import com.example.apiSetup.DTOs.Flight;
+import com.example.apiSetup.DTOs.Journey;
 import com.example.apiSetup.DTOs.FlightData;
-import com.example.apiSetup.utilities.Request;
-import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,19 +41,19 @@ public class AviationApi {
         for (FlightOfferSearch flightOffersSearch: flightOffersSearches){
             FlightData flightData = new FlightData();
 
-            List<Flight> flights = new ArrayList<>();
+            List<Journey> journeys = new ArrayList<>();
 
             for (FlightOfferSearch.Itinerary itinerary : flightOffersSearch.getItineraries()) {
 
 
                 for (FlightOfferSearch.SearchSegment segment : itinerary.getSegments()) {
 
-                    Flight flight = new Flight(segment.getDeparture().getIataCode(), segment.getDeparture().getAt(), segment.getArrival().getIataCode(), segment.getArrival().getAt(), segment.getDuration(), segment.getCarrierCode() + segment.getNumber());
-                    flights.add(flight);
+                    Journey journey = new Journey(segment.getDeparture().getIataCode(), segment.getDeparture().getAt(), segment.getArrival().getIataCode(), segment.getArrival().getAt(), segment.getDuration(), segment.getCarrierCode() + segment.getNumber());
+                    journeys.add(journey);
                 }
 
             }
-            flightData.setFlights(flights);
+            flightData.setJourneys(journeys);
 
 
             flightData.setPrice(flightOffersSearch.getPrice().getTotal());
