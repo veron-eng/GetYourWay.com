@@ -5,6 +5,7 @@ import { AuthContext } from "../_context/AuthProvider";
 import { auth } from "@/firebaseAuth";
 import { useEffect, useRef } from "react";
 import skyLogo from "../../../public/sky-logo.svg";
+import LoginModal from "./LoginModal";
 
 import Link from "next/link";
 
@@ -12,6 +13,8 @@ export default function Navbar() {
   const { isSignedIn, user } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -96,14 +99,19 @@ export default function Navbar() {
         </div>
       ) : (
         <div>
-          <Link
+          <button
             className="bg-skyBlue rounded-md py-2 px-4 text-offWhite font-bold"
-            href="/search"
+            onClick={() => setShowLoginModal(true)}
           >
             Sign in
-          </Link>
+          </button>
         </div>
       )}
+
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      />
     </nav>
   );
 }
