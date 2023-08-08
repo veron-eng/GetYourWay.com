@@ -10,6 +10,7 @@ import FlightsDisplay from "./_components/FlightsDataComponent";
 import ShowRecommendations from "./_components/TVRecommendations";
 import ViewToggle from "./_components/ViewToggle";
 import DateSelector from "./_components/DateSelector";
+import "./styles.css";
 
 const provider = new GoogleAuthProvider();
 
@@ -17,65 +18,58 @@ export default function Search() {
   const { isSignedIn } = useContext(AuthContext);
   const [flightsData, setFlightsData] = useState(null);
   const [showSkeleton, setShowSkeleton] = useState(false);
-  const [shows, setShows] = useState([]); // Initial state is an empty array
+  const [shows, setShows] = useState([]);
   const [showReturnSelector, setShowReturnSelector] = useState(false);
-  const [formData, setFormData] = useState({
-    fromLocation: "",
-    toLocation: "",
-    leaveDate: "",
-    returnDate: "",
-  });
-  const [fromInput, setFromInput] = useState("");
-  const [toInput, setToInput] = useState("");
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("na");
-  const [fromDateValue, setFromDateValue] = useState<Date | null>(null);
-  const [toDateValue, setToDateValue] = useState<Date | null>(null);
-  const [fromValue, setFromValue] = useState("");
-  const [toValue, setToValue] = useState("");
-
-  const handleFromChange = (event: any) => {
-    setFromValue(event.target.value);
-  };
-
-  const handleFromDateChange = (date: Date | null) => {
-    setFromDateValue(date);
-  };
-
-  const handleToChange = (event: any) => {
-    setToValue(event.target.value);
-  };
-
-  const handleToDateChange = (date: Date | null) => {
-    if (showReturnSelector) {
-      setToDateValue(date);
-    } else {
-      setToDate("");
-    }
-  };
 
   const signInWithGoogle = () => {
     signInWithRedirect(auth, provider);
   };
 
-  const handleformSubmit = (e: any) => {
-    e.preventDefault();
+  const [isReturnFlight, setIsReturnFlight] = useState();
+  const [fromDestination, setFromDestination] = useState("");
+  const [ToDestination, setToDestination] = useState("");
+  const [Passengers, setPassengers] = useState("1");
 
-    console.log(formData);
+  const [fromDateValue, setFromDateValue] = useState("");
+  const [toDateValue, setToDateValue] = useState("");
+
+  function handlePassengerChange(event: any) {
+    setPassengers(event.target.value);
+  }
+
+  const handleFromChange = (event: any) => {
+    setFromDestination(event.target.value);
+  };
+
+  const handleFromDateChange = (date: string) => {
+    setFromDateValue(date);
+  };
+
+  const handleToChange = (event: any) => {
+    setToDestination(event.target.value);
+  };
+
+  const handleToDateChange = (date: string) => {
+    if (showReturnSelector) {
+      setToDateValue(date);
+    } else {
+      setToDateValue("0");
+    }
   };
 
   const handleCheckboxChange = (event: any) => {
     setShowReturnSelector(event.target.checked);
     if (!event.target.checked) {
-      setToDate("");
+      setToDateValue("");
     }
   };
 
   const printData = () => {
-    console.log("From location: " + fromValue);
-    console.log("To location: " + toValue);
+    console.log("From location: " + fromDestination);
+    console.log("To location: " + ToDestination);
     console.log("From date: " + fromDateValue);
     console.log("To date: " + toDateValue);
+    console.log("Number of passengers: " + Passengers);
   };
 
   // Checking whether user is signed in or not
@@ -142,43 +136,12 @@ export default function Search() {
     );
   } // User is signed in
   else {
-    const searchFlights = async (fromInput: string, toInput: string) => {
-      try {
-        setShowSkeleton(true); // Set showSkeleton to true when the search starts
-
-        const res = await axios.post("http://localhost:8080/search", {
-          from: fromInput,
-          to: toInput,
-        });
-        setFlightsData(res.data); // Store the flights data in the state.
-        setShowSkeleton(false);
-        console.log(typeof res.data);
-        console.log(res.data);
-        getEPGRecommendations(toInput);
-      } catch (error) {
-        console.error(`Error: ${error}`);
-      }
-    };
-
-    const getEPGRecommendations = async (toInput: string) => {
-      try {
-        const res = await axios.post("http://localhost:8080/EPG", {
-          to: toInput,
-        });
-
-        console.log(res.data);
-        setShows(res.data);
-      } catch (error) {
-        console.error(`Error: ${error}`);
-      }
-    };
-
     return (
       <>
         <Navbar />
-        <div className="flex flex-col items-center pt-28">
+        <div className="flex flex-col items-center pt-5">
           <h1 className="text-5xl text-center customSm-text-4xl sm:text-3xl font-extrabold">
-            <span className="whitespace-nowrap text-darkBlue">
+            <span className="whitespace-nowrap text-white">
               Plan your next <br />
               <span className="sky-text-gradient">adventure</span>
             </span>
@@ -187,74 +150,81 @@ export default function Search() {
             Search destinations, check the weather, view travel information, and
             more.
           </p>
-          <div className="flex  items-center justify-center w-[700px] h-[150px] sky-button-gradient">
-            <div className="flex flex-col items-center justify-center bg-white w-[690px] h-[140px]">
-              <div className="flex flex-col gap-y-1">
-                <div className="flex gap-x-3 items-center justify-center">
-                  <label className="text-center">From: </label>
-                  <input
-                    placeholder="Country, city or airport"
-                    className="border px-2 h-12 rounded-l-lg"
-                    type="text"
-                    value={fromValue}
-                    onChange={handleFromChange}
-                  />
-                  <label>To: </label>
-                  <input
-                    placeholder="Country, city or airport"
-                    className="border px-2 h-12 rounded-r-lg"
-                    type="text"
-                    value={toValue}
-                    onChange={handleToChange}
-                  />
-                  <label>Return flight?</label>
-                  <input
-                    type="checkbox"
-                    checked={showReturnSelector}
-                    onChange={handleCheckboxChange}
-                  />
-                </div>
+          <div className="flex items-center justify-center w-full h-[150px] sky-button-gradient barContainer">
+            <div className="flex flex-row gap-x-5 gap-y-5 items-center justify-center bar">
+              <div className="flex items-center flex-row gap-x-2">
+                <label className="text-center">
+                  Where are your travelling from?{" "}
+                </label>
+                <input
+                  placeholder="Country, city or airport"
+                  className="border px-2 h-12 rounded-l-lg"
+                  type="text"
+                  value={fromDestination}
+                  onChange={handleFromChange}
+                />
+              </div>
+              <div className="flex items-center flex-row gap-x-2">
+                <label>Where would you like to go? </label>
+                <input
+                  placeholder="Country, city or airport"
+                  className="border px-2 h-12 rounded-r-lg"
+                  type="text"
+                  value={ToDestination}
+                  onChange={handleToChange}
+                />
+              </div>
+              <div className="flex items-center flex-row gap-x-2">
+                <label htmlFor="dropdown">How many passengers?</label>
+                <select
+                  id="dropdown"
+                  value={Passengers}
+                  onChange={handlePassengerChange}
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div className="flex items-center flex-row gap-x-2">
+                <label>Return flight?</label>
+                <input
+                  type="checkbox"
+                  checked={showReturnSelector}
+                  onChange={handleCheckboxChange}
+                />
+              </div>
+              <div className="flex justify-center items-center">
                 <div className="flex justify-center items-center">
+                  <label>Leave date: </label>
+                  <div className="flex-1 border mx-2 rounded">
+                    <DateSelector onDateSelect={handleFromDateChange} />
+                  </div>
+                </div>
+                {showReturnSelector && (
                   <div className="flex justify-center items-center">
-                    <label>Leave date: </label>
+                    <label>Return date: </label>
                     <div className="flex-1 border mx-2 rounded">
-                      <DateSelector onDateSelect={handleFromDateChange} />
+                      <DateSelector onDateSelect={handleToDateChange} />
                     </div>
                   </div>
-
-                  {showReturnSelector && (
-                    <div className="flex justify-center items-center">
-                      <label>Return date: </label>
-                      <div className="flex-1 border mx-2 rounded">
-                        <DateSelector onDateSelect={handleToDateChange} />
-                      </div>
-                    </div>
-                  )}
-                  <button
-                    onClick={printData}
-                    className="bg-skyBlue text-offWhite rounded-md px-4 py-1 font-bold flex-2"
-                  >
-                    Search
-                  </button>
-                </div>
+                )}
               </div>
+              <button
+                onClick={printData}
+                className="bg-skyBlue text-offWhite rounded-md px-4 py-1 font-bold flex-2"
+              >
+                Search
+              </button>
             </div>
           </div>
         </div>
-        <div className="text-center mt-10">
+        <div className="text-center back">
           <ViewToggle />
         </div>
-        {/* Flight data */}
-        {/* {flightsData && <FlightsDisplay flightsData={flightsData} />} */}
-        {showSkeleton || flightsData ? (
-          <>
-            <FlightsDisplay
-              flightsData={flightsData}
-              isLoading={showSkeleton}
-            />
-            <ShowRecommendations shows={shows} />
-          </>
-        ) : null}
       </>
     );
   }
