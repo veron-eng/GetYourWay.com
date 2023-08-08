@@ -8,8 +8,8 @@
 		<version>3.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>backend</artifactId>
+	<groupId>com.sky</groupId>
+	<artifactId>getyourway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GetYourWay Backend</name>
 	<description>Backend API interface for the GetYourWay.com flight booking website.</description>

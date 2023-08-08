@@ -1,8 +1,8 @@
-package com.example.apiSetup;
+package com.sky.getyourway.services;
 
-import com.example.apiSetup.DTOs.WeatherData;
-import com.example.apiSetup.services.WeatherApi;
-import com.example.apiSetup.utils.TestData;
+import com.sky.getyourway.DTOs.WeatherData;
+import com.sky.getyourway.services.WeatherApi;
+import com.sky.getyourway.utils.TestData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

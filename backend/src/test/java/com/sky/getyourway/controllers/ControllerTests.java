@@ -1,5 +1,5 @@
-package com.example.apiSetup;
-import com.example.apiSetup.utils.Request;
+package com.sky.getyourway.controllers;
+import com.sky.getyourway.utils.Request;
 import org.junit.jupiter.api.Test;
 
 public class ControllerTests {

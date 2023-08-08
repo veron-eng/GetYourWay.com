@@ -1,11 +1,10 @@
-package com.example.apiSetup.services;
+package com.sky.getyourway.services;
 
 import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.resources.FlightOfferSearch;
-import com.example.apiSetup.DTOs.Journey;
-import com.example.apiSetup.DTOs.FlightData;
-import org.springframework.beans.factory.annotation.Value;
+import com.sky.getyourway.DTOs.Journey;
+import com.sky.getyourway.DTOs.FlightData;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

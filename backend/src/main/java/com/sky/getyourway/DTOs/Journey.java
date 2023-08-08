@@ -1,4 +1,4 @@
-package com.example.apiSetup.DTOs;
+package com.sky.getyourway.DTOs;
 
 public class Journey {
     private String departureAirport;

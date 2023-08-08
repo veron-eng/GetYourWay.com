@@ -1,9 +1,8 @@
-package com.example.apiSetup.services;
+package com.sky.getyourway.services;
 
-import com.example.apiSetup.DTOs.WeatherData;
-import com.example.apiSetup.utils.Request;
+import com.sky.getyourway.DTOs.WeatherData;
+import com.sky.getyourway.utils.Request;
 import com.google.gson.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

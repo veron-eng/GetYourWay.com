@@ -1,4 +1,4 @@
-package com.example.apiSetup.utils;
+package com.sky.getyourway.utils;
 
 public class TestData {
     public static String getFutureWeatherData() {

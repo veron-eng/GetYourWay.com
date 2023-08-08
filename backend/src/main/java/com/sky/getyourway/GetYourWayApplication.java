@@ -1,13 +1,13 @@
-package com.example.apiSetup;
+package com.sky.getyourway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiSetupApplication {
+public class GetYourWayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApiSetupApplication.class, args);
+		SpringApplication.run(GetYourWayApplication.class, args);
 	}
 
 }

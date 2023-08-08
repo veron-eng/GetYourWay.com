@@ -1,9 +1,9 @@
-package com.example.apiSetup.services;
+package com.sky.getyourway.services;
 
-import com.example.apiSetup.DTOs.FlightData;
-import com.example.apiSetup.DTOs.Journey;
-import com.example.apiSetup.DTOs.JourneyData;
-import com.example.apiSetup.DTOs.WeatherData;
+import com.sky.getyourway.DTOs.FlightData;
+import com.sky.getyourway.DTOs.Journey;
+import com.sky.getyourway.DTOs.JourneyData;
+import com.sky.getyourway.DTOs.WeatherData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

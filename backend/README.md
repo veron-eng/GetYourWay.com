@@ -30,4 +30,4 @@ GYW_FLIGHT_API_ID=<flight_id>; GYW_FLIGHT_API_SECRET=<flight_secret>; GYW_WEATHE
 
 Run the main file: `src.main.java.com.example.apiSetup/ApiSetupApplication`.
 
-Tests can be found in the `src.tests` folder. 
+Tests can be found in the `src.tests` folder.

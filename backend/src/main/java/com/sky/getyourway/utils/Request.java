@@ -1,4 +1,4 @@
-package com.example.apiSetup.utils;
+package com.sky.getyourway.utils;
 
 import org.springframework.web.client.RestTemplate;
 

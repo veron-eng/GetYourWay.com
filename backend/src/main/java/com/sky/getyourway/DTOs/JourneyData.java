@@ -1,4 +1,4 @@
-package com.example.apiSetup.DTOs;
+package com.sky.getyourway.DTOs;
 
 import java.util.List;
 
