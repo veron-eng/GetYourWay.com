@@ -5,19 +5,40 @@ import com.amadeus.Params;
 import com.amadeus.resources.FlightOfferSearch;
 import com.example.apiSetup.DTOs.Journey;
 import com.example.apiSetup.DTOs.FlightData;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AviationApi {
+//    @Value("${flightApiId}")
+    private final String flightApiId;
+
+//    @Value("${flightApiSecret}")
+    private final String flightApiSecret;
+
+    public AviationApi() {
+        flightApiId = System.getenv("GYW_FLIGHT_API_ID");
+        flightApiSecret = System.getenv("GYW_FLIGHT_API_SECRET");
+        System.out.println("client id=" + flightApiId);
+        System.out.println("client secret=" + flightApiSecret);
+
+        Map<String, String> allEnvs = System.getenv();
+        for (String s: allEnvs.keySet()) {
+            System.out.printf("%s=%s%n", s, allEnvs.get(s));
+        }
+    }
+
+
     public List<FlightData> getAviationData(String source, String destination, String departure, String ret){
         FlightOfferSearch[] flightOffersSearches = new FlightOfferSearch[0];
         // TODO: don't hardcode secrets
         // TODO: include adults and max as parameters from frontend
         Amadeus amadeus = Amadeus
-                .builder("ZZkbSwWOBAj4nNKZ4XRf5aynNYYjVWJZ", "8ydmsaPAGizoKCmA")
+                .builder(flightApiId, flightApiSecret)
                 .setLogLevel("debug") // or warn
                 .build();
         try{

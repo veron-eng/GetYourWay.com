@@ -2,7 +2,7 @@ package com.example.apiSetup;
 
 import com.example.apiSetup.DTOs.WeatherData;
 import com.example.apiSetup.services.WeatherApi;
-import com.example.apiSetup.utilities.TestData;
+import com.example.apiSetup.utils.TestData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

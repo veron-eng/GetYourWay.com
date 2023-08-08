@@ -1,29 +1,37 @@
 package com.example.apiSetup.services;
 
-import com.example.apiSetup.DTOs.Journey;
-import com.example.apiSetup.DTOs.FlightData;
 import com.example.apiSetup.DTOs.WeatherData;
-import com.example.apiSetup.utilities.Request;
+import com.example.apiSetup.utils.Request;
 import com.google.gson.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import top.jfunc.json.impl.JSONObject;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class WeatherApi {
+//    @Value("${weatherApiKey}")
+    private String weatherApiKey = System.getenv("GYW_WEATHER_API_KEY");;
+
+    private String getUrl(String type, String destination, String extra) {
+        return String.format(
+                "http://api.weatherapi.com/v1/%s.json?key=%s&q=%s%s",
+                type,
+                weatherApiKey,
+                destination,
+                extra
+        );
+    }
+
     public WeatherData getWeatherData(String destination, String arrivalDate, long timeDifference){
         String returnedData = "";
 
         if (timeDifference < 14){
             // 14-day forecast
-            returnedData = Request.makeRequest("http://api.weatherapi.com/v1/forecast.json?key=812ae5e12239439693d140857233107&q=" + destination +"&days=10&aqi=no&alerts=no");
+            returnedData = Request.makeRequest(getUrl("forecast", destination, "&days=10&aqi=no&alerts=no"));
         } else {
             //future
-            returnedData = Request.makeRequest("http://api.weatherapi.com/v1/future.json?key=812ae5e12239439693d140857233107&q=" + destination + "&dt=" + arrivalDate);
+            returnedData = Request.makeRequest(getUrl("future", destination, "&dt=" + arrivalDate));
         }
 
         return parseData(returnedData, arrivalDate);

@@ -1,4 +1,4 @@
-package com.example.apiSetup.utilities;
+package com.example.apiSetup.utils;
 
 public class TestData {
     public static String getFutureWeatherData() {

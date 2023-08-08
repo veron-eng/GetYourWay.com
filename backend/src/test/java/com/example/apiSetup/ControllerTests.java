@@ -1,5 +1,5 @@
 package com.example.apiSetup;
-import com.example.apiSetup.utilities.Request;
+import com.example.apiSetup.utils.Request;
 import org.junit.jupiter.api.Test;
 
 public class ControllerTests {
