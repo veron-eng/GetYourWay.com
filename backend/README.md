@@ -14,16 +14,15 @@ and `Download Sources`.
 
 ### 2. Environment Variables
 
-Either go to `Run -> Edit Configurations...`, 
-or select the dropdown next to the green play button at the top of the IDE
-and press `Edit Configurations...`.
-
-Paste the following into the `Environment Variables` field, 
-replacing the values with your keys:
+Add the following to your `~/.zprofiles` file, replacing the values with your keys:
 
 ```text
-GYW_FLIGHT_API_ID=<flight_id>; GYW_FLIGHT_API_SECRET=<flight_secret>; GYW_WEATHER_API_KEY=<weather_key>
+export GYW_FLIGHT_API_ID=<flight_id>
+export GYW_FLIGHT_API_SECRET=<flight_secret>
+export GYW_WEATHER_API_KEY=<weather_key>
 ```
+
+You may need to restart IntelliJ for them to be recognised.
 
 
 ## Running Locally

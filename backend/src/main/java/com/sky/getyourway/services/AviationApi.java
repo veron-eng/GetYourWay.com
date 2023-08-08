@@ -13,31 +13,15 @@ import java.util.Map;
 
 @Service
 public class AviationApi {
-//    @Value("${flightApiId}")
-    private final String flightApiId;
-
-//    @Value("${flightApiSecret}")
-    private final String flightApiSecret;
-
-    public AviationApi() {
-        flightApiId = System.getenv("GYW_FLIGHT_API_ID");
-        flightApiSecret = System.getenv("GYW_FLIGHT_API_SECRET");
-        System.out.println("client id=" + flightApiId);
-        System.out.println("client secret=" + flightApiSecret);
-
-        Map<String, String> allEnvs = System.getenv();
-        for (String s: allEnvs.keySet()) {
-            System.out.printf("%s=%s%n", s, allEnvs.get(s));
-        }
-    }
-
 
     public List<FlightData> getAviationData(String source, String destination, String departure, String ret){
         FlightOfferSearch[] flightOffersSearches = new FlightOfferSearch[0];
-        // TODO: don't hardcode secrets
-        // TODO: include adults and max as parameters from frontend
+
+        String apiId = System.getenv("GYW_FLIGHT_API_ID");
+        String apiSecret = System.getenv("GYW_FLIGHT_API_SECRET");
+
         Amadeus amadeus = Amadeus
-                .builder(flightApiId, flightApiSecret)
+                .builder(apiId, apiSecret)
                 .setLogLevel("debug") // or warn
                 .build();
         try{

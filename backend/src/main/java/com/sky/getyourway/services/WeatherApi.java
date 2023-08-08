@@ -9,10 +9,8 @@ import java.time.LocalDate;
 
 @Service
 public class WeatherApi {
-//    @Value("${weatherApiKey}")
-    private String weatherApiKey = System.getenv("GYW_WEATHER_API_KEY");;
 
-    private String getUrl(String type, String destination, String extra) {
+    private String getUrl(String type, String weatherApiKey, String destination, String extra) {
         return String.format(
                 "http://api.weatherapi.com/v1/%s.json?key=%s&q=%s%s",
                 type,
@@ -24,13 +22,14 @@ public class WeatherApi {
 
     public WeatherData getWeatherData(String destination, String arrivalDate, long timeDifference){
         String returnedData = "";
+        String weatherApiKey = System.getenv("GYW_WEATHER_API_KEY");;
 
         if (timeDifference < 14){
             // 14-day forecast
-            returnedData = Request.makeRequest(getUrl("forecast", destination, "&days=10&aqi=no&alerts=no"));
+            returnedData = Request.makeRequest(getUrl("forecast", weatherApiKey, destination, "&days=10&aqi=no&alerts=no"));
         } else {
             //future
-            returnedData = Request.makeRequest(getUrl("future", destination, "&dt=" + arrivalDate));
+            returnedData = Request.makeRequest(getUrl("future", weatherApiKey, destination, "&dt=" + arrivalDate));
         }
 
         return parseData(returnedData, arrivalDate);
