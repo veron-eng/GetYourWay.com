@@ -38,17 +38,17 @@ export default function Navbar() {
   }, [dropdownRef]);
 
   return (
-    <nav className="flex justify-between items-center border-b">
+    <nav className="flex justify-between items-center">
       <div className="fixed inset-0 sky-button-gradient h-[4px]"></div>
       {/* Logo */}
-      <Link className="w-16 py-2" href="/">
+      <Link className="w-[100px] pl-3" href="/">
         <Image src={skyLogo} alt="Sky logo" priority />
       </Link>
 
       {/* Links */}
       {isSignedIn && user ? (
         <div className="relative" ref={dropdownRef}>
-          <button className="py-3" onClick={toggleDropdown}>
+          <button className="py-3 px-3" onClick={toggleDropdown}>
             {user.photoURL ? (
               <img
                 src={user.photoURL}
