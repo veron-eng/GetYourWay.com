@@ -35,6 +35,5 @@ pipeline {
                     sh "echo Jenkins Build PORT: 3000"
             }
         }
-        }
-       
     }
+}
