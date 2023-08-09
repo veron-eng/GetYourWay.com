@@ -23,7 +23,6 @@ pipeline {
             steps {
                     sh '''
                         cd frontend
-                        export CI=false
                         npm run build
                     '''
             }
