@@ -16,7 +16,10 @@ pipeline {
         }
         stage('Build the app'){
             steps{
-                sh 'npm run build'
+                sh '''
+            cd frontend
+            npm run build
+        '''
             }
         }
     }
