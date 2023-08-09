@@ -24,6 +24,10 @@ export GYW_WEATHER_API_KEY=<weather_key>
 
 You may need to restart IntelliJ for them to be recognised.
 
+Alternatively, go to Run -> Edit Configurations... and enter them manually there.
+You'll have to do this for GetYourWayApplication as well as any test configurations.
+If you do this approach, make sure `.idea` is in your `.gitignore` file!
+
 
 ## Running Locally
 
