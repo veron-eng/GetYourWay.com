@@ -1,0 +1,15 @@
+.react-datepicker {
+  border: none; /* Remove default border */
+  border-radius: 10px; /* Add rounded corners */
+  background-color: lightseagreen;
+}
+
+.react-datepicker__input-container {
+}
+
+.react-datepicker__input-container input {
+  border: 1px solid lightgray; /* Adjust the border size on the input */
+  border-radius: 5px; /* Add rounded corners to the input */
+  padding: 15px; /* Add some padding for better visual appearance */
+  font-size: 16px;
+}

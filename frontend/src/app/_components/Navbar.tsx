@@ -50,7 +50,7 @@ export default function Navbar() {
         <div className="relative" ref={dropdownRef}>
           <button className="py-3 px-3" onClick={toggleDropdown}>
             {user.photoURL ? (
-              <img
+              <Image
                 src={user.photoURL}
                 className="rounded-full w-14"
                 alt="User profile photo"

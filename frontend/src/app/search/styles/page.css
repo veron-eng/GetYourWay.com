@@ -1,8 +1,8 @@
 @media (max-width: 1200px) {
   .bar {
-    flex-direction: column;
     background-color: white;
     width: 100%;
+    height: 10px;
   }
   .sky-button-gradient {
     background: linear-gradient(
@@ -16,19 +16,31 @@
     flex-direction: column;
   }
   .barContainer {
-    height: 345px;
+    height: 420px;
     width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .barContainer {
+    height: 50px;
+    width: 100%;
+  }
+  .bar {
+    flex-direction: column;
+    background-color: white;
+    width: 100%;
+    height: 150px;
   }
 }
 
 .bar {
   background-color: white;
   width: 100%;
-  min-height: 130px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  height: 140px;
 }
-.back {
-  background-color: navy;
-  height: 600px;
+
+.barContainer {
+  height: 150x;
+  width: 100%;
 }

@@ -14,12 +14,13 @@ const MapComponent = () => {
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyBQ-7FRus3W2IvCX1Fr3Eis77q0CdL-pOs">
-      <a>Map View</a>
+      <h1>Map View</h1>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={center}
         zoom={10}
       >
+        <div className="bg-blue">Hello</div>
         <Marker position={center} />
       </GoogleMap>
     </LoadScript>
