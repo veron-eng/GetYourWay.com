@@ -54,6 +54,8 @@ export default function Navbar() {
                 src={user.photoURL}
                 className="rounded-full w-14"
                 alt="User profile photo"
+                width={50}
+                height={50}
               />
             ) : (
               <span className="rounded-full bg-skyBlue text-offWhite capitalize text-center w-14 h-14 flex items-center justify-center font-bold">
