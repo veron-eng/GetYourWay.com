@@ -21,16 +21,25 @@ pipeline {
         }
         stage('Build the app') {
             steps {
-                script {
-                    def buildCommand = "npm run build " +
-                                      "--env=REACT_APP_FIREBASE_API_KEY=${env.NEXT_PUBLIC_FIREBASE_API_KEY} " +
-                                      "--env=REACT_APP_FIREBASE_AUTH_DOMAIN=${env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN} " +
-                                      "--env=REACT_APP_FIREBASE_PROJECT_ID=${env.NEXT_PUBLIC_FIREBASE_PROJECT_ID} " +
-                                      "--env=REACT_APP_FIREBASE_STORAGE_BUCKET=${env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET} " +
-                                      "--env=REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID} " +
-                                      "--env=REACT_APP_FIREBASE_APP_ID=${env.NEXT_PUBLIC_FIREBASE_APP_ID}"
-                    sh "cd frontend && ${buildCommand}"
-                }
+                    script {
+                            sh '''
+                                cd frontend
+                                sed -i 's/NEXT_PUBLIC_FIREBASE_API_KEY/${env.NEXT_PUBLIC_FIREBASE_API_KEY}/' .env.local
+                                sed -i 's/NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN/${env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN}/' .env.local
+                                sed -i 's/NEXT_PUBLIC_FIREBASE_PROJECT_ID/${env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}/' .env.local
+                                sed -i 's/NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET/${env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/' .env.local
+                                sed -i 's/NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID/${env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID}/' .env.local
+                                sed -i 's/NEXT_PUBLIC_FIREBASE_APP_ID/${env.NEXT_PUBLIC_FIREBASE_APP_ID}/' .env.local
+                                npm run build
+                            '''
+                            }
+                    }
+            steps {
+                    sh '''
+                        cd frontend
+                        npm run build
+                    '''
+            }
             }
         }
         stage('Deploy') {
