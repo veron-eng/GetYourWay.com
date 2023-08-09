@@ -81,7 +81,7 @@ export default function Search() {
 
   // Checking whether user is signed in or not
   if (isSignedIn == undefined) {
-    return <>""</>;
+    return <>.</>;
 
     // User is not signed in
   } else if (isSignedIn == false) {
