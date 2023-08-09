@@ -10,7 +10,9 @@ import FlightsDisplay from "./_components/FlightsDataComponent";
 import ShowRecommendations from "./_components/TVRecommendations";
 import ViewToggle from "./_components/ViewToggle";
 import DateSelector from "./_components/DateSelector";
-import "./styles.css";
+import "./styles/page.css";
+import gywLogo from "../../../public/GetYourWayLogo.png";
+import Link from "next/link";
 
 const provider = new GoogleAuthProvider();
 
@@ -25,7 +27,6 @@ export default function Search() {
     signInWithRedirect(auth, provider);
   };
 
-  const [isReturnFlight, setIsReturnFlight] = useState();
   const [fromDestination, setFromDestination] = useState("");
   const [ToDestination, setToDestination] = useState("");
   const [Passengers, setPassengers] = useState("1");
@@ -33,36 +34,42 @@ export default function Search() {
   const [fromDateValue, setFromDateValue] = useState("");
   const [toDateValue, setToDateValue] = useState("");
 
-  function handlePassengerChange(event: any) {
-    setPassengers(event.target.value);
-  }
-
   const handleFromChange = (event: any) => {
     setFromDestination(event.target.value);
-  };
-
-  const handleFromDateChange = (date: string) => {
-    setFromDateValue(date);
   };
 
   const handleToChange = (event: any) => {
     setToDestination(event.target.value);
   };
 
+  const handleFromDateChange = (date: string) => {
+    setFromDateValue(date);
+  };
+
   const handleToDateChange = (date: string) => {
     if (showReturnSelector) {
       setToDateValue(date);
     } else {
-      setToDateValue("0");
+      setToDateValue("NA");
     }
   };
 
-  const handleCheckboxChange = (event: any) => {
+  const handleReturnChange = (event: any) => {
     setShowReturnSelector(event.target.checked);
-    if (!event.target.checked) {
+    if (event.target.checked) {
       setToDateValue("");
+      console.log(event.target.checked);
+    } else {
+      console.log("unchecked");
+      const unchecked = "NA";
+      setToDateValue(unchecked);
+      console.log(unchecked);
     }
   };
+
+  function handlePassengerChange(event: any) {
+    setPassengers(event.target.value);
+  }
 
   const printData = () => {
     console.log("From location: " + fromDestination);
@@ -139,7 +146,10 @@ export default function Search() {
     return (
       <>
         <Navbar />
-        <div className="flex flex-col items-center pt-5">
+        <div className="flex flex-col items-center">
+          <Link className="w-[150px] pl-3" href="/">
+            <Image src={gywLogo} alt="Sky logo" priority />
+          </Link>
           <h1 className="text-5xl text-center customSm-text-4xl sm:text-3xl font-extrabold">
             <span className="whitespace-nowrap text-white">
               Plan your next <br />
@@ -152,34 +162,35 @@ export default function Search() {
           </p>
           <div className="flex items-center justify-center w-full h-[150px] sky-button-gradient barContainer">
             <div className="flex flex-row gap-x-5 gap-y-5 items-center justify-center bar">
-              <div className="flex items-center flex-row gap-x-2">
+              <div className="flex items-center flex-col gap-y-2">
                 <label className="text-center">
                   Where are your travelling from?{" "}
                 </label>
                 <input
                   placeholder="Country, city or airport"
-                  className="border px-2 h-12 rounded-l-lg"
+                  className="border px-10 h-12 rounded"
                   type="text"
                   value={fromDestination}
                   onChange={handleFromChange}
                 />
               </div>
-              <div className="flex items-center flex-row gap-x-2">
+              <div className="flex items-center flex-col gap-y-2">
                 <label>Where would you like to go? </label>
                 <input
                   placeholder="Country, city or airport"
-                  className="border px-2 h-12 rounded-r-lg"
+                  className="border px-10 h-12 rounded"
                   type="text"
                   value={ToDestination}
                   onChange={handleToChange}
                 />
               </div>
-              <div className="flex items-center flex-row gap-x-2">
+              <div className="flex items-center flex-col gap-y-2">
                 <label htmlFor="dropdown">How many passengers?</label>
                 <select
                   id="dropdown"
                   value={Passengers}
                   onChange={handlePassengerChange}
+                  className="p-3 w-full"
                 >
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -189,39 +200,44 @@ export default function Search() {
                   <option value="6">6</option>
                 </select>
               </div>
-              <div className="flex items-center flex-row gap-x-2">
-                <label>Return flight?</label>
-                <input
-                  type="checkbox"
-                  checked={showReturnSelector}
-                  onChange={handleCheckboxChange}
-                />
-              </div>
-              <div className="flex justify-center items-center">
-                <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center gap-x-5">
+                <div className="flex flex-col justify-center items-center">
                   <label>Leave date: </label>
-                  <div className="flex-1 border mx-2 rounded">
+                  <div className="">
                     <DateSelector onDateSelect={handleFromDateChange} />
                   </div>
                 </div>
                 {showReturnSelector && (
-                  <div className="flex justify-center items-center">
+                  <div className="flex flex-col justify-center items-center">
                     <label>Return date: </label>
-                    <div className="flex-1 border mx-2 rounded">
+                    <div className="">
                       <DateSelector onDateSelect={handleToDateChange} />
                     </div>
                   </div>
                 )}
+                <div className="flex flex-col">
+                  <label className="">Return flight?</label>
+                  <div className="flex justify-center items-center">
+                    <input
+                      type="checkbox"
+                      checked={showReturnSelector}
+                      onChange={handleReturnChange}
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-center items-center gap-x-5 pt-6">
+                  <button
+                    onClick={printData}
+                    className="bg-skyBlue text-offWhite rounded-md px-9 py-4 font-bold flex-2"
+                  >
+                    Search
+                  </button>
+                </div>
               </div>
-              <button
-                onClick={printData}
-                className="bg-skyBlue text-offWhite rounded-md px-4 py-1 font-bold flex-2"
-              >
-                Search
-              </button>
             </div>
           </div>
         </div>
+
         <div className="text-center back">
           <ViewToggle />
         </div>

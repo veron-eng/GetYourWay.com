@@ -71,4 +71,5 @@
 .background-container {
   background-image: url("../../public/background.jpg");
   background-size: 100% 70%;
+  height: 1500px;
 }
