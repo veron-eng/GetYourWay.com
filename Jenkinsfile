@@ -26,9 +26,8 @@ pipeline {
                         npm run build
                     '''
             }
-            }
         }
-        stage('Deploy') {
+         stage('Deploy') {
             steps {
                  sh '''
              cd frontend
@@ -36,4 +35,6 @@ pipeline {
         '''
             }
         }
+        }
+       
     }
