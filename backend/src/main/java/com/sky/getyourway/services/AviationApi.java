@@ -6,15 +6,13 @@ import com.amadeus.resources.FlightOfferSearch;
 import com.sky.getyourway.DTOs.Journey;
 import com.sky.getyourway.DTOs.FlightData;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AviationApi {
 
-    public List<FlightData> getAviationData(String source, String destination, String departure, String ret){
+    public List<FlightData> getAviationData(String source, String destination, String departure, String ret) {
         FlightOfferSearch[] flightOffersSearches = new FlightOfferSearch[0];
 
         String apiId = System.getenv("GYW_FLIGHT_API_ID");
