@@ -29,10 +29,7 @@ pipeline {
         }
          stage('Deploy') {
             steps {
-               //sh "nohup npm run start -- --port=${FRONT_END_PORT} &"
-
-
-                    // Print the Jenkins build URL
+               sh "npm run start"
                     sh "echo Jenkins Build PORT: 3000"
             }
         }
