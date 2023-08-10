@@ -29,7 +29,10 @@ pipeline {
         }
          stage('Deploy') {
             steps {
-               sh "npm run start"
+                sh '''
+                        cd frontend
+                        npm run start
+                    '''
                     sh "echo Jenkins Build PORT: 3000"
             }
         }
