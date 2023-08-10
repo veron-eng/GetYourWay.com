@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh '''
                         cd frontend
-                        npm run start &
+                        nohup npm run start &
                     '''
                     sh "echo Jenkins Build PORT: 3000"
             }
