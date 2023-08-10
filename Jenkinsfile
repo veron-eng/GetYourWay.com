@@ -8,7 +8,7 @@ pipeline {
     stages{
         stage('Checkout'){
             steps{
-                git branch: 'feature/map-view', url: 'https://github.com/veron-eng/GetYourWay.com.git'
+                git branch: 'main', url: 'https://github.com/veron-eng/GetYourWay.com.git'
             }
         }
         stage('Install dependencies'){
