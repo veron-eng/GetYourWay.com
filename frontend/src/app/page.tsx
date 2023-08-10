@@ -3,6 +3,8 @@ import { useRef, useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+//Router
+import { useRouter } from "next/navigation";
 
 export default function Search() {
   const [flightsData, setFlightsData] = useState(null);
@@ -41,6 +43,9 @@ export default function Search() {
   const toInputRef = useRef<HTMLInputElement>(null);
   const toSuggestionRef = useRef<HTMLDivElement>(null);
 
+  // navigation hook
+  const router = useRouter();
+
   const handleFromChange = async (event: any) => {
     try {
       const value = event.target.value;
@@ -58,13 +63,11 @@ export default function Search() {
       }
 
       if (value.length > 2) {
-        console.log("making a call");
         const res = await fetch(
           `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
         );
         const data = await res.json();
         if (data && data.response && data.response.airports) {
-          console.log(data.response.airports);
           setSuggestedFromAirports(data.response.airports);
         }
       } else {
@@ -104,7 +107,6 @@ export default function Search() {
       );
       const data = await res.json();
       if (data && data.response && data.response.airports) {
-        console.log(data.response.airports);
         setSuggestedToAirports(data.response.airports);
       }
     } else {
@@ -136,10 +138,25 @@ export default function Search() {
   };
 
   const printData = () => {
-    console.log("From location: " + fromValue);
-    console.log("To location: " + toValue);
-    console.log("From date: " + fromDateFormatted);
-    console.log("To date: " + toDateFormatted);
+    const fromAirportCode = fromValue.substring(
+      fromValue.length - 4,
+      fromValue.length - 1
+    );
+    const toAirportCode = toValue.substring(
+      toValue.length - 4,
+      toValue.length - 1
+    );
+
+    router.push(
+      "/results?from=" +
+        fromAirportCode +
+        "&to=" +
+        toAirportCode +
+        "&leave=" +
+        fromDateFormatted +
+        "&ret=" +
+        toDateFormatted
+    );
   };
 
   const searchFlights = async (fromInput: string, toInput: string) => {

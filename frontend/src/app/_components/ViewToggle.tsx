@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ListView from "./ListView";
 import MapView from "./MapView";
 
-export default function ViewToggle() {
+export default function ViewToggle({ flightsData }: { flightsData: any }) {
   const [listViewSelected, setListViewSelected] = useState(true);
   const swapView = () => {
     setListViewSelected(!listViewSelected);
@@ -15,7 +15,7 @@ export default function ViewToggle() {
       >
         Toggle view
       </button>
-      <div>{listViewSelected ? <ListView /> : <MapView />}</div>
+      <div>{listViewSelected ? <ListView flightsData={flightsData} /> : <MapView />}</div>
     </div>
   );
 }
