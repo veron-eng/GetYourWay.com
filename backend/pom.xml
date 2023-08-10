@@ -7,13 +7,12 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
-<!--		3.1.2-->
 	</parent>
-	<groupId>com.getyourway</groupId>
-	<artifactId>backend</artifactId>
+	<groupId>com.sky</groupId>
+	<artifactId>getyourway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>backend</name>
-	<description>Sky group project</description>
+	<name>GetYourWay Backend</name>
+	<description>Backend API interface for the GetYourWay.com flight booking website.</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -25,24 +24,23 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.theokanning.openai-gpt3-java</groupId>
-			<artifactId>service</artifactId>
-			<version>0.14.0</version>
+			<groupId>com.amadeus</groupId>
+			<artifactId>amadeus-java</artifactId>
+			<version>7.1.0</version>
 		</dependency>
+        <dependency>
+            <groupId>top.jfunc.json</groupId>
+            <artifactId>Json-Gson</artifactId>
+            <version>1.0</version>
+        </dependency>
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.10.1</version>
+			<groupId>top.jfunc.json</groupId>
+			<artifactId>Json-Gson</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 
