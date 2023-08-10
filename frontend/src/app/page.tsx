@@ -27,7 +27,7 @@ export default function Search() {
   const [fromDateFormatted, setFromDateFormatted] = useState("");
   const [suggestedFromAirports, setSuggestedFromAirports] = useState([]);
   const [suggestedToAirports, setSuggestedToAirports] = useState([]);
-
+  
   const [selectedDepartDate, setSelectedDepartDate] = useState<Date | null>(
     null
   );
