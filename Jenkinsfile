@@ -27,10 +27,5 @@ pipeline {
                     '''
             }
         }
-         stage('Deploy') {
-            steps {
-              sh "nohup npm run start -- --port ${FRONT_END_PORT} -i &"
-            }
-        }
     }
 }
