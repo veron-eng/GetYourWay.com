@@ -23,6 +23,8 @@ export default function Search() {
   const [toDateValue, setToDateValue] = useState<Date | null>(null);
   const [fromValue, setFromValue] = useState("");
   const [toValue, setToValue] = useState("");
+  const [toDateFormatted, setToDateFormatted] = useState("");
+  const [fromDateFormatted, setFromDateFormatted] = useState("");
   const [suggestedFromAirports, setSuggestedFromAirports] = useState([]);
   const [suggestedToAirports, setSuggestedToAirports] = useState([]);
 
@@ -82,40 +84,35 @@ export default function Search() {
   };
 
   const handleToChange = async (event: any) => {
-    try {
-      const value = event.target.value;
-      setToValue(value);
-  
-      // Clear the autosuggestions if the input is empty
-      if (!value.trim()) {
-        setSuggestedToAirports([]);
-        return;
-      }
-  
-      // Check if the backspace was pressed by comparing lengths
-      if (value.length < prevToValue.current.length) {
-        prevToValue.current = value; // Update the ref to the new value
-        return; // Exit without making an API call
-      }
-  
-      if (value.length > 2) {
-        const res = await fetch(
-          `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
-        );
-        const data = await res.json();
-        if (data && data.response && data.response.airports) {
-          console.log(data.response.airports);
-          setSuggestedToAirports(data.response.airports);
-        }
-      } else {
-        setSuggestedToAirports([]); // Clear suggestions if less than 3 characters
-      }
-  
-      prevToValue.current = value; // Update the ref to the new value for the next check
-    } catch (error) {
-      console.error("Error handling the change:", error);
-      // Handle the error accordingly, e.g., by setting an error state, showing an alert, etc.
+    const value = event.target.value;
+    setToValue(value);
+
+    // Clear the autosuggestions if the input is empty
+    if (!value.trim()) {
+      setSuggestedToAirports([]);
+      return;
     }
+
+    // Check if the backspace was pressed by comparing lengths
+    if (value.length < prevToValue.current.length) {
+      prevToValue.current = value; // Update the ref to the new value
+      return; // Exit without making an API call
+    }
+
+    if (value.length > 2) {
+      const res = await fetch(
+        `https://airlabs.co/api/v9/suggest?q=${value}&api_key=1a65d7ba-833b-4134-b039-51f628f84926`
+      );
+      const data = await res.json();
+      if (data && data.response && data.response.airports) {
+        console.log(data.response.airports);
+        setSuggestedToAirports(data.response.airports);
+      }
+    } else {
+      setSuggestedToAirports([]); // Clear suggestions if less than 3 characters
+    }
+
+    prevToValue.current = value; // Update the ref to the new value for the next check
   };
   
 
@@ -143,8 +140,8 @@ export default function Search() {
   const printData = () => {
     console.log("From location: " + fromValue);
     console.log("To location: " + toValue);
-    console.log("From date: " + fromDateValue);
-    console.log("To date: " + toDateValue);
+    console.log("From date: " + fromDateFormatted);
+    console.log("To date: " + toDateFormatted);
   };
 
   const searchFlights = async (fromInput: string, toInput: string) => {
@@ -181,6 +178,17 @@ export default function Search() {
   const handleDateChange = (date: Date | null) => {
     setSelectedDepartDate(date);
     handleFromDateChange(date);
+  };
+
+  const formatDate = (date: any) => {
+    if (date == null) {
+      return String(date);
+    } else {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
   };
 
   // Close autosuggestions when the user clicks outside the input
@@ -341,6 +349,7 @@ export default function Search() {
                 onChange={(date) => {
                   setSelectedDepartDate(date);
                   handleFromDateChange(date);
+                  setFromDateFormatted(formatDate(date));
                 }}
                 dateFormat="dd/MM/yyyy"
                 placeholderText="Depart date"
@@ -363,6 +372,7 @@ export default function Search() {
                 onChange={(date) => {
                   setSelectedReturnDate(date);
                   handleToDateChange(date);
+                  setToDateFormatted(formatDate(date));
                 }}
                 dateFormat="dd/MM/yyyy"
                 placeholderText="Return date"
