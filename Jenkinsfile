@@ -29,7 +29,7 @@ pipeline {
         }
          stage('Deploy') {
             steps {
-              sh "nohup npm run start -- --port ${FRONT_END_PORT} > /dev/null 2>&1 &"
+              sh "nohup npm run start -- --port ${FRONT_END_PORT} &"
             }
         }
     }
