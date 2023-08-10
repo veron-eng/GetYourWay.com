@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import { AuthProvider } from "./_context/AuthProvider";
+import Navbar from "./_components/Navbar";
 
 const rale = Raleway({ subsets: ["latin"] });
 
@@ -23,7 +24,10 @@ export default function RootLayout({
           " max-w-[1400px] mx-auto px-4 bg-[#FAF9F9] background-gradient"
         }
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <Navbar />
+          {children}
+          </AuthProvider>
       </body>
     </html>
   );

@@ -1,15 +1,8 @@
 "use client";
-import { useState,  } from "react";
-import Navbar from "./_components/Navbar";
-import { signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "@/firebaseAuth";
+import { useRef, useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import FlightsDisplay from "./_components/FlightsDataComponent";
-import ShowRecommendations from "./_components/TVRecommendations";
-import ViewToggle from "./_components/ViewToggle";
-import DateSelector from "./_components/DateSelector";
-
-const provider = new GoogleAuthProvider();
 
 export default function Search() {
   const [flightsData, setFlightsData] = useState(null);
@@ -30,17 +23,87 @@ export default function Search() {
   const [toDateValue, setToDateValue] = useState<Date | null>(null);
   const [fromValue, setFromValue] = useState("");
   const [toValue, setToValue] = useState("");
+  const [suggestedFromAirports, setSuggestedFromAirports] = useState([]);
+  const [suggestedToAirports, setSuggestedToAirports] = useState([]);
 
-  const handleFromChange = (event: any) => {
-    setFromValue(event.target.value);
+  const [selectedDepartDate, setSelectedDepartDate] = useState<Date | null>(
+    null
+  );
+  const [selectedReturnDate, setSelectedReturnDate] = useState<Date | null>(
+    null
+  );
+  const prevFromValue = useRef("");
+  const prevToValue = useRef("");
+  const fromInputRef = useRef<HTMLInputElement>(null);
+  const fromSuggestionRef = useRef<HTMLDivElement>(null);
+  const toInputRef = useRef<HTMLInputElement>(null);
+  const toSuggestionRef = useRef<HTMLDivElement>(null);
+
+  const handleFromChange = async (event: any) => {
+    const value = event.target.value;
+    setFromValue(value);
+
+    if (!value.trim()) {
+      setSuggestedFromAirports([]);
+      return;
+    }
+    // Check if backspace was pressed
+    if (value.length < prevFromValue.current.length) {
+      prevFromValue.current = value;
+      return; // Exit the function early if backspace was pressed
+    }
+
+    if (value.length > 2) {
+      console.log("making a call");
+      const res = await fetch(
+        `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
+      );
+      const data = await res.json();
+      if (data && data.response && data.response.airports) {
+        console.log(data.response.airports);
+        setSuggestedFromAirports(data.response.airports);
+      }
+    } else {
+      setSuggestedFromAirports([]); // Clear suggestions for short input values
+    }
+
+    prevFromValue.current = value;
   };
 
   const handleFromDateChange = (date: Date | null) => {
     setFromDateValue(date);
   };
 
-  const handleToChange = (event: any) => {
-    setToValue(event.target.value);
+  const handleToChange = async (event: any) => {
+    const value = event.target.value;
+    setToValue(value);
+
+    // Clear the autosuggestions if the input is empty
+    if (!value.trim()) {
+      setSuggestedToAirports([]);
+      return;
+    }
+
+    // Check if the backspace was pressed by comparing lengths
+    if (value.length < prevToValue.current.length) {
+      prevToValue.current = value; // Update the ref to the new value
+      return; // Exit without making an API call
+    }
+
+    if (value.length > 2) {
+      const res = await fetch(
+        `https://airlabs.co/api/v9/suggest?q=${value}&api_key=1a65d7ba-833b-4134-b039-51f628f84926`
+      );
+      const data = await res.json();
+      if (data && data.response && data.response.airports) {
+        console.log(data.response.airports);
+        setSuggestedToAirports(data.response.airports);
+      }
+    } else {
+      setSuggestedToAirports([]); // Clear suggestions if less than 3 characters
+    }
+
+    prevToValue.current = value; // Update the ref to the new value for the next check
   };
 
   const handleToDateChange = (date: Date | null) => {
@@ -49,10 +112,6 @@ export default function Search() {
     } else {
       setToDate("");
     }
-  };
-
-  const signInWithGoogle = () => {
-    signInWithRedirect(auth, provider);
   };
 
   const handleformSubmit = (e: any) => {
@@ -106,84 +165,374 @@ export default function Search() {
     }
   };
 
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDepartDate(date);
+    handleFromDateChange(date);
+  };
+
+  // Close autosuggestions when the user clicks outside the input
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        fromInputRef.current &&
+        !fromInputRef.current.contains(event.target as Node) &&
+        fromSuggestionRef.current &&
+        !fromSuggestionRef.current.contains(event.target as Node)
+      ) {
+        setSuggestedFromAirports([]);
+      }
+
+      if (
+        toInputRef.current &&
+        !toInputRef.current.contains(event.target as Node) &&
+        toSuggestionRef.current &&
+        !toSuggestionRef.current.contains(event.target as Node)
+      ) {
+        setSuggestedToAirports([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup on component unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const words = ["adventure", "journey", "expedition", "quest", "voyage"];
+
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+    }, 8000); // Change word every 8 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <>
-      <Navbar />
-      <div className="flex flex-col items-center pt-28">
-        <h1 className="text-5xl text-center customSm-text-4xl sm:text-3xl font-extrabold">
-          <span className="whitespace-nowrap text-darkBlue">
-            Plan your next <br />
-            <span className="sky-text-gradient">adventure</span>
+    <div className="flex flex-col gap-y-8 items-center justify-center h-[calc(100vh-128px)] relative">
+      <div className="w-screen absolute top-0 sky-button-gradient h-[5px] z-50"></div>
+      <div className="w-screen h-[calc(100vh-128px)] absolute background-image "></div>
+      <section className="flex flex-col items-center justify-center bg-[rgba(44,46,93,0.56)] shadow-2xl z-30 w-full px-6 rounded-2xl h-[360px] gap-y-7">
+        <h1 className="relative sm:text-4xl md:text-5xl  text-7xl text-glow  text-white font-bold w-full tracking-wide">
+          Find your next{" "}
+          <span className="bg-gradient-text bg-clip-text text-transparent px-1 rounded-lg typewriter-text">
+            {words[wordIndex]}
           </span>
         </h1>
-        <p className="text-center text-lg sm:text-base text-gray-700 font-semibold">
-          Search destinations, check the weather, view travel information, and
-          more.
-        </p>
-        <div className="flex  items-center justify-center w-[700px] h-[150px] sky-button-gradient">
-          <div className="flex flex-col items-center justify-center bg-white w-[690px] h-[140px]">
-            <div className="flex flex-col gap-y-1">
-              <div className="flex gap-x-3 items-center justify-center">
-                <label className="text-center">From: </label>
-                <input
-                  placeholder="Country, city or airport"
-                  className="border px-2 h-12 rounded-l-lg"
-                  type="text"
-                  value={fromValue}
-                  onChange={handleFromChange}
-                />
-                <label>To: </label>
-                <input
-                  placeholder="Country, city or airport"
-                  className="border px-2 h-12 rounded-r-lg"
-                  type="text"
-                  value={toValue}
-                  onChange={handleToChange}
-                />
-                <label>Return flight?</label>
-                <input
-                  type="checkbox"
-                  checked={showReturnSelector}
-                  onChange={handleCheckboxChange}
-                />
-              </div>
-              <div className="flex justify-center items-center">
-                <div className="flex justify-center items-center">
-                  <label>Leave date: </label>
-                  <div className="flex-1 border mx-2 rounded">
-                    <DateSelector onDateSelect={handleFromDateChange} />
-                  </div>
-                </div>
-
-                {showReturnSelector && (
-                  <div className="flex justify-center items-center">
-                    <label>Return date: </label>
-                    <div className="flex-1 border mx-2 rounded">
-                      <DateSelector onDateSelect={handleToDateChange} />
-                    </div>
+        <div className="flex-col flex gap-y-3 items-end w-full">
+          <div className="flex w-full gap-x-0.5">
+            {/* From Airport Input */}
+            <div className="relative flex-1 flex flex-col">
+              <label
+                htmlFor="fromAirport"
+                className="mb-1 text-white font-semibold"
+              >
+                From
+              </label>
+              <input
+                id="fromAirport"
+                placeholder="Country, city or airport"
+                className="border px-2 h-16 rounded-l-xl w-full"
+                type="text"
+                value={fromValue}
+                onChange={handleFromChange}
+                ref={fromInputRef}
+              />
+              <div
+                ref={fromSuggestionRef}
+                className="absolute top-full w-full bg-white rounded shadow-lg divide-y z-10"
+              >
+                {suggestedFromAirports.length > 0 && (
+                  <div className="absolute mt-2 w-full bg-white border rounded shadow-lg divide-y z-10">
+                    {suggestedFromAirports
+                      .filter((airport: any) => airport.iata_code)
+                      .map((airport: any, index) => (
+                        <div
+                          key={index}
+                          className="cursor-pointer hover:bg-gray-200 p-2"
+                          onClick={() => {
+                            setFromValue(
+                              `${airport.name} (${airport.iata_code})`
+                            );
+                            setSuggestedFromAirports([]);
+                          }}
+                        >
+                          {airport.name} ({airport.iata_code})
+                        </div>
+                      ))}
                   </div>
                 )}
-                <button
-                  onClick={printData}
-                  className="bg-skyBlue text-offWhite rounded-md px-4 py-1 font-bold flex-2"
-                >
-                  Search
-                </button>
               </div>
             </div>
+
+            {/* To Airport Input */}
+            <div className="relative flex-1 flex flex-col">
+              <label
+                htmlFor="toAirport"
+                className="mb-1 text-white font-semibold"
+              >
+                To
+              </label>
+              <input
+                ref={toInputRef}
+                id="toAirport"
+                placeholder="Country, city or airport"
+                className="border px-2 h-16 w-full"
+                type="text"
+                value={toValue}
+                onChange={handleToChange}
+              />
+              <div
+                ref={toSuggestionRef}
+                className="absolute top-full w-full bg-white rounded shadow-lg divide-y z-10"
+              >
+                {suggestedToAirports.length > 0 && (
+                  <div className="absolute mt-2 w-full bg-white border rounded shadow-lg divide-y z-10">
+                    {suggestedToAirports
+                      .filter((airport: any) => airport.iata_code)
+                      .map((airport: any, index) => (
+                        <div
+                          key={index}
+                          className="cursor-pointer hover:bg-gray-200 p-2"
+                          onClick={() => {
+                            setToValue(
+                              `${airport.name} (${airport.iata_code})`
+                            );
+                            setSuggestedToAirports([]);
+                          }}
+                        >
+                          {airport.name} ({airport.iata_code})
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Depart Date Picker */}
+            <div className="flex flex-col justify-between">
+              <label
+                htmlFor="departDate"
+                className="mb-1 text-white font-semibold"
+              >
+                Depart
+              </label>
+              <DatePicker
+                id="departDate"
+                selected={selectedDepartDate}
+                className="border px-2 h-16 w-full"
+                onChange={(date) => {
+                  setSelectedDepartDate(date);
+                  handleFromDateChange(date);
+                }}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Depart date"
+                isClearable
+              />
+            </div>
+
+            {/* Return Date Picker */}
+            <div className="flex flex-col justify-between">
+              <label
+                htmlFor="returnDate"
+                className="mb-1 text-white font-semibold"
+              >
+                Return
+              </label>
+              <DatePicker
+                id="returnDate"
+                selected={selectedReturnDate}
+                className="border px-2 rounded-r-xl h-16 w-full"
+                onChange={(date) => {
+                  setSelectedReturnDate(date);
+                  handleToDateChange(date);
+                }}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Return date"
+                isClearable
+              />
+            </div>
           </div>
+
+          <button
+            onClick={printData}
+            className="bg-skyBlue text-offWhite rounded-md px-4 py-3 font-bold"
+          >
+            Search Flights
+          </button>
         </div>
-      </div>
-      <div className="text-center mt-10">
-        <ViewToggle />
-      </div>
-      {/* Flight data */}
-      {showSkeleton || flightsData ? (
-        <>
-          <FlightsDisplay flightsData={flightsData} isLoading={showSkeleton} />
-          <ShowRecommendations shows={shows} />
-        </>
-      ) : null}
-    </>
+      </section>
+    </div>
   );
 }
+
+//
+
+{
+  /* <div className="text-center mt-10">
+<ViewToggle />
+</div>
+{/* Flight data */
+}
+// {showSkeleton || flightsData ? (
+// <>
+//   <FlightsDisplay flightsData={flightsData} isLoading={showSkeleton} />
+//   <ShowRecommendations shows={shows} />
+// </>
+// ) : null} */}
+
+// Santorini
+// <section className="flex flex-col items-center justify-center bg-[#ffffffe5] shadow-2xl z-30 w-full px-6 rounded-2xl h-[360px] gap-y-7">
+// <h1 className="relative text-darkBlue sm:text-4xl md:text-5xl  text-7xl text-glow font-bold w-full tracking-wide">
+//             Find your next{" "}
+// <span className="bg-gradient-text bg-clip-text text-transparent px-1 rounded-lg typewriter-text">
+// {words[wordIndex]}
+//</span>
+// </h1>
+//   <div className="flex-col flex gap-y-3 items-end w-full">
+//     <div className="flex w-full gap-x-0.5">
+//       {/* From Airport Input */}
+//       <div className="relative flex-1 flex flex-col">
+//         <label
+//           htmlFor="fromAirport"
+//           className="mb-1 font-semibold text-darkBlue"
+//         >
+//           From
+//         </label>
+//         <input
+//           id="fromAirport"
+//           placeholder="Country, city or airport"
+//           className="border px-2 h-16 rounded-l-xl w-full"
+//           type="text"
+//           value={fromValue}
+//           onChange={handleFromChange}
+//           ref={fromInputRef}
+//         />
+//         <div
+//           ref={fromSuggestionRef}
+//           className="absolute top-full w-full bg-white rounded shadow-lg divide-y z-10"
+//         >
+//           {suggestedFromAirports.length > 0 && (
+//             <div className="absolute mt-2 w-full bg-white border rounded shadow-lg divide-y z-10">
+//               {suggestedFromAirports
+//                 .filter((airport: any) => airport.iata_code)
+//                 .map((airport: any, index) => (
+//                   <div
+//                     key={index}
+//                     className="cursor-pointer hover:bg-gray-200 p-2"
+//                     onClick={() => {
+//                       setFromValue(
+//                         `${airport.name} (${airport.iata_code})`
+//                       );
+//                       setSuggestedFromAirports([]);
+//                     }}
+//                   >
+//                     {airport.name} ({airport.iata_code})
+//                   </div>
+//                 ))}
+//             </div>
+//           )}
+//         </div>
+//       </div>
+
+//       {/* To Airport Input */}
+//       <div className="relative flex-1 flex flex-col">
+//         <label
+//           htmlFor="toAirport"
+//           className="mb-1 font-semibold text-darkBlue"
+//         >
+//           To
+//         </label>
+//         <input
+//           ref={toInputRef}
+//           id="toAirport"
+//           placeholder="Country, city or airport"
+//           className="border px-2 h-16 w-full"
+//           type="text"
+//           value={toValue}
+//           onChange={handleToChange}
+//         />
+//         <div
+//           ref={toSuggestionRef}
+//           className="absolute top-full w-full bg-white rounded shadow-lg divide-y z-10"
+//         >
+//           {suggestedToAirports.length > 0 && (
+//             <div className="absolute mt-2 w-full bg-white border rounded shadow-lg divide-y z-10">
+//               {suggestedToAirports
+//                 .filter((airport: any) => airport.iata_code)
+//                 .map((airport: any, index) => (
+//                   <div
+//                     key={index}
+//                     className="cursor-pointer hover:bg-gray-200 p-2"
+//                     onClick={() => {
+//                       setToValue(
+//                         `${airport.name} (${airport.iata_code})`
+//                       );
+//                       setSuggestedToAirports([]);
+//                     }}
+//                   >
+//                     {airport.name} ({airport.iata_code})
+//                   </div>
+//                 ))}
+//             </div>
+//           )}
+//         </div>
+//       </div>
+
+//       {/* Depart Date Picker */}
+//       <div className="flex flex-col justify-between">
+//         <label
+//           htmlFor="departDate"
+//           className="mb-1 font-semibold text-darkBlue"
+//         >
+//           Depart
+//         </label>
+//         <DatePicker
+//           id="departDate"
+//           selected={selectedDepartDate}
+//           className="border px-2 h-16 w-full"
+//           onChange={(date) => {
+//             setSelectedDepartDate(date);
+//             handleFromDateChange(date);
+//           }}
+//           dateFormat="dd/MM/yyyy"
+//           placeholderText="Depart date"
+//           isClearable
+//         />
+//       </div>
+
+//       {/* Return Date Picker */}
+//       <div className="flex flex-col justify-between">
+//         <label
+//           htmlFor="returnDate"
+//           className="mb-1 font-semibold text-darkBlue"
+//         >
+//           Return
+//         </label>
+//         <DatePicker
+//           id="returnDate"
+//           selected={selectedReturnDate}
+//           className="border px-2 rounded-r-xl h-16 w-full"
+//           onChange={(date) => {
+//             setSelectedReturnDate(date);
+//             handleToDateChange(date);
+//           }}
+//           dateFormat="dd/MM/yyyy"
+//           placeholderText="Return date"
+//           isClearable
+//         />
+//       </div>
+//     </div>
+
+//     <button
+//       onClick={printData}
+//       className="bg-skyBlue text-offWhite rounded-md px-4 py-3 font-bold"
+//     >
+//       Search Flights
+//     </button>
+//   </div>
+// </section>

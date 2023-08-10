@@ -25,6 +25,10 @@ module.exports = {
         sm: { max: "425px" },
         xs: { max: "320px" },
       },
+      backgroundImage: {
+        'gradient-text': 'linear-gradient(to right, rgb(245, 100, 0) 0%, rgb(255, 10, 80) 50%, rgb(255, 0, 165) 100%)',
+      },
+
     },
   },
   plugins: [],

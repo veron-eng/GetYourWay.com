@@ -15,7 +15,6 @@ export default function Navbar() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -41,17 +40,16 @@ export default function Navbar() {
   }, [dropdownRef]);
 
   return (
-    <nav className="flex justify-between items-center border-b">
-      <div className="fixed inset-0 sky-button-gradient h-[4px]"></div>
+    <nav className="flex justify-between items-center h-32">
       {/* Logo */}
-      <Link className="w-16 py-2" href="/">
-        <Image src={skyLogo} alt="Sky logo" priority />
+      <Link href="/">
+        <Image src={skyLogo} width={80} alt="Sky logo" priority />
       </Link>
 
       {/* Links */}
-      {isSignedIn && user ? (
+      {isSignedIn === undefined ? null : isSignedIn && user ? (
         <div className="relative" ref={dropdownRef}>
-          <button className="py-3" onClick={toggleDropdown}>
+          <button onClick={toggleDropdown}>
             {user.photoURL ? (
               <img
                 src={user.photoURL}
@@ -65,7 +63,7 @@ export default function Navbar() {
             )}
           </button>
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-64 p-2 bg-white border rounded-md shadow-lg divide-y divide-gray-100">
+            <div className="absolute z-40 right-0 mt-2 w-64 p-2 bg-white border rounded-md shadow-lg divide-y divide-gray-100">
               <div className="px-4 py-3">
                 <h3 className="text-sm text-gray-800 font-bold">
                   {user.displayName}

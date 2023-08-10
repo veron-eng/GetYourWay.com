@@ -1,9 +1,7 @@
 import { useContext, useState, ReactNode, MouseEvent, FC } from "react";
 import Image from "next/image";
-import Navbar from "../_components/Navbar";
 import { signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "@/firebaseAuth";
-import { AuthContext } from "../_context/AuthProvider";
 
 const provider = new GoogleAuthProvider();
 

@@ -26,20 +26,6 @@ body {
     rgb(var(--background-start-rgb)); */
 }
 
-/* Bg configs */
-.background-gradient::before {
-  background: radial-gradient(
-    20% 50% at 50% 35%,
-    rgba(181, 0, 125,0.5) 0%,
-    rgba(250, 249, 249, 1) 100%
-  );
-  z-index: -10;
-  content: "";
-  position: absolute;
-  inset: 0px;
-  pointer-events: none;
-}
-
 .sky-text-gradient {
   background: linear-gradient(
     to right,
@@ -54,29 +40,89 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.sky-button-gradient {
-  background: linear-gradient(to right, rgb(255, 158, 0) 0%, rgb(255, 0, 0) 25%, rgb(181, 0, 125) 50%, rgb(33, 66, 156) 75%, rgb(0, 113, 255) 100%);
+.background-image {
+  background-image: url("/background.jpg"); /* adjust path accordingly */
+  /* background-image: url("/santorini.jpg"); /* adjust path accordingly */
+  background-size: cover; /* cover the entire div */
+  background-position: center; /* center the background */
+  background-repeat: no-repeat; /* prevent repeating the image */
 }
 
-@media (max-width: 800px) {
-  .background-gradient::before {
-    background: radial-gradient(
-      35% 35% at 50% 30%,
-      rgba(181, 0, 125,0.5) 0%,
-      rgba(250, 249, 249, 1) 100%
-    );
-    z-index: -10;
-    content: "";
-    position: absolute;
-    inset: 0px;
-    pointer-events: none;
-  }
+.border-gradient {
+  border: double 1px transparent;
+  border-radius: 0.25rem; /* Optional for rounded borders */
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, red, blue);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
 }
-/* */
+
+.sky-button-gradient {
+  background: linear-gradient(
+    to right,
+    rgb(255, 158, 0) 0%,
+    rgb(255, 0, 0) 25%,
+    rgb(181, 0, 125) 50%,
+    rgb(33, 66, 156) 75%,
+    rgb(0, 113, 255) 100%
+  );
+}
+
+.border-gradient {
+  border: double 1px transparent;
+  border-radius: 0.25rem; /* Optional for rounded borders */
+  background-image: linear-gradient(white, white),
+    linear-gradient(
+      to right,
+      rgb(255, 158, 0) 0%,
+      rgb(255, 0, 0) 25%,
+      rgb(181, 0, 125) 50%,
+      rgb(33, 66, 156) 75%,
+      rgb(0, 113, 255) 100%
+    );
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
 
 @media (max-width: 500px) {
   .customSm-text-4xl {
     font-size: 2.25rem; /* 36px */
     line-height: 2.5rem; /* 40px */
   }
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blinkTextCursor {
+  from {
+    border-right-color: transparent;
+  }
+  to {
+    border-right-color: inherit;
+  }
+}
+
+.typewriter-text {
+  overflow: hidden;
+  border-right: 0.15em solid white;
+  white-space: nowrap;
+  animation: blinkTextCursor 500ms steps(44) infinite alternate,
+    typewriter 4s steps(44) 1s 1 normal both;
+}
+
+.typewriter-effect {
+   border-right: 0.15em solid orange; /* The cursor */
+   overflow: hidden; /* Ensures the content is clipped */
+   white-space: nowrap; /* Keeps the content on a single line */
+   margin: 0 auto; /* Gives that typing effect as the typing carat moves */
+   animation: 
+      typewriter 8s steps(9, end) 1s 1 normal both,
+      blinkTextCursor 500ms steps(9) infinite alternate;
 }
