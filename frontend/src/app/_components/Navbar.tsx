@@ -5,7 +5,6 @@ import { AuthContext } from "../_context/AuthProvider";
 import { auth } from "@/firebaseAuth";
 import { useEffect, useRef } from "react";
 import skyLogo from "../../../public/sky-logo.svg";
-
 import Link from "next/link";
 
 export default function Navbar() {
