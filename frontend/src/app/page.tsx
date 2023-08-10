@@ -45,18 +45,18 @@ export default function Search() {
     try {
       const value = event.target.value;
       setFromValue(value);
-  
+
       if (!value.trim()) {
         setSuggestedFromAirports([]);
         return;
       }
-  
+
       // Check if backspace was pressed
       if (value.length < prevFromValue.current.length) {
         prevFromValue.current = value;
         return; // Exit the function early if backspace was pressed
       }
-  
+
       if (value.length > 2) {
         console.log("making a call");
         const res = await fetch(
@@ -70,14 +70,13 @@ export default function Search() {
       } else {
         setSuggestedFromAirports([]); // Clear suggestions for short input values
       }
-  
+
       prevFromValue.current = value;
     } catch (error) {
       console.error("Error handling the change:", error);
       // Handle the error accordingly, e.g., by setting an error state, showing an alert, etc.
     }
   };
-  
 
   const handleFromDateChange = (date: Date | null) => {
     setFromDateValue(date);
@@ -114,7 +113,6 @@ export default function Search() {
 
     prevToValue.current = value; // Update the ref to the new value for the next check
   };
-  
 
   const handleToDateChange = (date: Date | null) => {
     if (showReturnSelector) {
@@ -239,7 +237,7 @@ export default function Search() {
       <div className="w-screen h-[calc(100vh-128px)] absolute background-image "></div>
       <section className="flex flex-col items-center justify-center bg-[rgba(44,46,93,0.56)] shadow-2xl z-30 w-full px-6 rounded-2xl h-[360px] gap-y-7">
         <h1 className="relative sm:text-4xl md:text-5xl  text-7xl text-glow  text-white font-bold w-full tracking-wide">
-          Find your next{" "}
+          XXX Find your next{" "}
           <span className="bg-gradient-text bg-clip-text text-transparent px-1 rounded-lg typewriter-text">
             {words[wordIndex]}
           </span>
