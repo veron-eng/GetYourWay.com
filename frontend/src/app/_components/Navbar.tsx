@@ -63,7 +63,7 @@ export default function Navbar() {
             )}
           </button>
           {dropdownOpen && (
-            <div className="absolute z-40 right-0 mt-2 w-64 p-2 bg-white border rounded-md shadow-lg divide-y divide-gray-100">
+            <div className="absolute z-50 right-0 mt-2 w-64 p-2 bg-white border rounded-md shadow-lg divide-y divide-gray-100">
               <div className="px-4 py-3">
                 <h3 className="text-sm text-gray-800 font-bold">
                   {user.displayName}

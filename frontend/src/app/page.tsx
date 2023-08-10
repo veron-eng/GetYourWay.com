@@ -40,71 +40,84 @@ export default function Search() {
   const toSuggestionRef = useRef<HTMLDivElement>(null);
 
   const handleFromChange = async (event: any) => {
-    const value = event.target.value;
-    setFromValue(value);
-
-    if (!value.trim()) {
-      setSuggestedFromAirports([]);
-      return;
-    }
-    // Check if backspace was pressed
-    if (value.length < prevFromValue.current.length) {
-      prevFromValue.current = value;
-      return; // Exit the function early if backspace was pressed
-    }
-
-    if (value.length > 2) {
-      console.log("making a call");
-      const res = await fetch(
-        `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
-      );
-      const data = await res.json();
-      if (data && data.response && data.response.airports) {
-        console.log(data.response.airports);
-        setSuggestedFromAirports(data.response.airports);
+    try {
+      const value = event.target.value;
+      setFromValue(value);
+  
+      if (!value.trim()) {
+        setSuggestedFromAirports([]);
+        return;
       }
-    } else {
-      setSuggestedFromAirports([]); // Clear suggestions for short input values
+  
+      // Check if backspace was pressed
+      if (value.length < prevFromValue.current.length) {
+        prevFromValue.current = value;
+        return; // Exit the function early if backspace was pressed
+      }
+  
+      if (value.length > 2) {
+        console.log("making a call");
+        const res = await fetch(
+          `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
+        );
+        const data = await res.json();
+        if (data && data.response && data.response.airports) {
+          console.log(data.response.airports);
+          setSuggestedFromAirports(data.response.airports);
+        }
+      } else {
+        setSuggestedFromAirports([]); // Clear suggestions for short input values
+      }
+  
+      prevFromValue.current = value;
+    } catch (error) {
+      console.error("Error handling the change:", error);
+      // Handle the error accordingly, e.g., by setting an error state, showing an alert, etc.
     }
-
-    prevFromValue.current = value;
   };
+  
 
   const handleFromDateChange = (date: Date | null) => {
     setFromDateValue(date);
   };
 
   const handleToChange = async (event: any) => {
-    const value = event.target.value;
-    setToValue(value);
-
-    // Clear the autosuggestions if the input is empty
-    if (!value.trim()) {
-      setSuggestedToAirports([]);
-      return;
-    }
-
-    // Check if the backspace was pressed by comparing lengths
-    if (value.length < prevToValue.current.length) {
-      prevToValue.current = value; // Update the ref to the new value
-      return; // Exit without making an API call
-    }
-
-    if (value.length > 2) {
-      const res = await fetch(
-        `https://airlabs.co/api/v9/suggest?q=${value}&api_key=1a65d7ba-833b-4134-b039-51f628f84926`
-      );
-      const data = await res.json();
-      if (data && data.response && data.response.airports) {
-        console.log(data.response.airports);
-        setSuggestedToAirports(data.response.airports);
+    try {
+      const value = event.target.value;
+      setToValue(value);
+  
+      // Clear the autosuggestions if the input is empty
+      if (!value.trim()) {
+        setSuggestedToAirports([]);
+        return;
       }
-    } else {
-      setSuggestedToAirports([]); // Clear suggestions if less than 3 characters
+  
+      // Check if the backspace was pressed by comparing lengths
+      if (value.length < prevToValue.current.length) {
+        prevToValue.current = value; // Update the ref to the new value
+        return; // Exit without making an API call
+      }
+  
+      if (value.length > 2) {
+        const res = await fetch(
+          `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
+        );
+        const data = await res.json();
+        if (data && data.response && data.response.airports) {
+          console.log(data.response.airports);
+          setSuggestedToAirports(data.response.airports);
+        }
+      } else {
+        setSuggestedToAirports([]); // Clear suggestions if less than 3 characters
+      }
+  
+      prevToValue.current = value; // Update the ref to the new value for the next check
+    } catch (error) {
+      console.error("Error handling the change:", error);
+      // Handle the error accordingly, e.g., by setting an error state, showing an alert, etc.
     }
-
-    prevToValue.current = value; // Update the ref to the new value for the next check
   };
+  
 
   const handleToDateChange = (date: Date | null) => {
     if (showReturnSelector) {
@@ -214,7 +227,7 @@ export default function Search() {
 
   return (
     <div className="flex flex-col gap-y-8 items-center justify-center h-[calc(100vh-128px)] relative">
-      <div className="w-screen absolute top-0 sky-button-gradient h-[5px] z-50"></div>
+      <div className="w-screen absolute top-0 sky-button-gradient h-[5px] z-40"></div>
       <div className="w-screen h-[calc(100vh-128px)] absolute background-image "></div>
       <section className="flex flex-col items-center justify-center bg-[rgba(44,46,93,0.56)] shadow-2xl z-30 w-full px-6 rounded-2xl h-[360px] gap-y-7">
         <h1 className="relative sm:text-4xl md:text-5xl  text-7xl text-glow  text-white font-bold w-full tracking-wide">
