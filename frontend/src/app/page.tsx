@@ -94,7 +94,7 @@ export default function Search() {
 
     if (value.length > 2) {
       const res = await fetch(
-        `https://airlabs.co/api/v9/suggest?q=${value}&api_key=1a65d7ba-833b-4134-b039-51f628f84926`
+        `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
       );
       const data = await res.json();
       if (data && data.response && data.response.airports) {
