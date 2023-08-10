@@ -13,7 +13,7 @@ const MapComponent = () => {
   };
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyBQ-7FRus3W2IvCX1Fr3Eis77q0CdL-pOs">
+    <LoadScript googleMapsApiKey={`${process.env.GOOGLE_MAPS_API_KEY}`}>
       <a>Map View</a>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}

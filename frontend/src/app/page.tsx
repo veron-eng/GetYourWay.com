@@ -23,6 +23,8 @@ export default function Search() {
   const [toDateValue, setToDateValue] = useState<Date | null>(null);
   const [fromValue, setFromValue] = useState("");
   const [toValue, setToValue] = useState("");
+  const [toDateFormatted, setToDateFormatted] = useState("");
+  const [fromDateFormatted, setFromDateFormatted] = useState("");
   const [suggestedFromAirports, setSuggestedFromAirports] = useState([]);
   const [suggestedToAirports, setSuggestedToAirports] = useState([]);
 
@@ -130,8 +132,8 @@ export default function Search() {
   const printData = () => {
     console.log("From location: " + fromValue);
     console.log("To location: " + toValue);
-    console.log("From date: " + fromDateValue);
-    console.log("To date: " + toDateValue);
+    console.log("From date: " + fromDateFormatted);
+    console.log("To date: " + toDateFormatted);
   };
 
   const searchFlights = async (fromInput: string, toInput: string) => {
@@ -168,6 +170,17 @@ export default function Search() {
   const handleDateChange = (date: Date | null) => {
     setSelectedDepartDate(date);
     handleFromDateChange(date);
+  };
+
+  const formatDate = (date: any) => {
+    if (date == null) {
+      return String(date);
+    } else {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
   };
 
   // Close autosuggestions when the user clicks outside the input
@@ -328,6 +341,7 @@ export default function Search() {
                 onChange={(date) => {
                   setSelectedDepartDate(date);
                   handleFromDateChange(date);
+                  setFromDateFormatted(formatDate(date));
                 }}
                 dateFormat="dd/MM/yyyy"
                 placeholderText="Depart date"
@@ -350,6 +364,7 @@ export default function Search() {
                 onChange={(date) => {
                   setSelectedReturnDate(date);
                   handleToDateChange(date);
+                  setToDateFormatted(formatDate(date));
                 }}
                 dateFormat="dd/MM/yyyy"
                 placeholderText="Return date"
