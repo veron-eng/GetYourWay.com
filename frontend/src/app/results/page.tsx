@@ -26,20 +26,16 @@ export default function Results({
       );
       console.log(result.data);
       setFlightsData(result.data);
-
     } catch (error) {
       alert("Sorry, no flights found for your given locations and dates.");
       router.push("/");
       console.log(error);
     }
   };
+  
   useEffect(() => {
     getFlights();
   }, []);
 
-  return (
-    <>
-      <ViewToggle flightsData={flightsData} />
-    </>
-  );
+  return <ViewToggle flightsData={flightsData} />;
 }

@@ -41,8 +41,8 @@ body {
 }
 
 .background-image {
-  background-image: url("/background.jpg"); /* adjust path accordingly */
-  /* background-image: url("/santorini.jpg"); /* adjust path accordingly */
+  /*background-image: url("/background.jpg"); /* adjust path accordingly */
+  background-image: url("/santorini.jpg"); /* adjust path accordingly */
   background-size: cover; /* cover the entire div */
   background-position: center; /* center the background */
   background-repeat: no-repeat; /* prevent repeating the image */

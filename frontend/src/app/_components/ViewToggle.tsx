@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ListView from "./ListView";
+import ListView from "../results/_components/_ListViewComponents/ListView";
 import MapView from "./MapView";
 
 export default function ViewToggle({ flightsData }: { flightsData: any }) {
@@ -15,7 +15,13 @@ export default function ViewToggle({ flightsData }: { flightsData: any }) {
       >
         Toggle view
       </button>
-      <div>{listViewSelected ? <ListView flightsData={flightsData} /> : <MapView />}</div>
+      <div>
+        {listViewSelected ? (
+          <ListView flightsData={flightsData} />
+        ) : (
+          <MapView />
+        )}
+      </div>
     </div>
   );
 }
