@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ViewToggle from "./_components/_ListViewComponents/ListView";
+import ListView from "./_components/_ListViewComponents/ListView";
+import MapView from "./mapView/MapView";
 import { useRouter } from "next/navigation";
 
 export default function Results({
@@ -12,6 +13,10 @@ export default function Results({
   const { from, to, leave, ret } = searchParams;
 
   const [flightsData, setFlightsData] = useState<any>([]);
+  const [listViewSelected, setListViewSelected] = useState(true);
+  const swapView = () => {
+    setListViewSelected(!listViewSelected);
+  };
 
   // nav router
   const router = useRouter();
@@ -35,5 +40,21 @@ export default function Results({
     getFlights();
   }, []);
 
-  return <ViewToggle flightsData={flightsData} />;
+  return (
+    <>
+      <button
+        onClick={() => swapView()}
+        className="mx-2 bg-skyBlue text-offWhite rounded-md px-4 py-1 font-bold"
+      >
+        Toggle view
+      </button>
+      <div>
+        {listViewSelected ? (
+          <ListView flightsData={flightsData} />
+        ) : (
+          <MapView flightsData={flightsData} />
+        )}
+      </div>
+    </>
+  );
 }
