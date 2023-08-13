@@ -8,7 +8,7 @@ pipeline {
     stages{
         stage('Checkout'){
             steps{
-                git branch: 'feature/map-view', url: 'https://github.com/veron-eng/GetYourWay.com.git'
+                git branch: 'main', url: 'https://github.com/veron-eng/GetYourWay.com.git'
             }
         }
         stage('Install dependencies'){
@@ -25,14 +25,6 @@ pipeline {
                         cd frontend
                         npm run build
                     '''
-            }
-        }
-         stage('Deploy') {
-            steps {
-               sh "nohup npm start -- --port=${FRONT_END_PORT} &"
-
-                    // Print the Jenkins build URL
-                    sh "echo Jenkins Build PORT: 3000"
             }
         }
     }
