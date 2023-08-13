@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ViewToggle from "../_components/ViewToggle";
-//Router
+import ViewToggle from "./_components/_ListViewComponents/ListView";
 import { useRouter } from "next/navigation";
 
 export default function Results({
@@ -24,7 +23,6 @@ export default function Results({
       const result = await axios.get(
         `http://localhost:8000/getFlights/${from}/${to}/${leave}/${ret}`
       );
-      console.log(result.data);
       setFlightsData(result.data);
     } catch (error) {
       alert("Sorry, no flights found for your given locations and dates.");
@@ -32,7 +30,7 @@ export default function Results({
       console.log(error);
     }
   };
-  
+
   useEffect(() => {
     getFlights();
   }, []);

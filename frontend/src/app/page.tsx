@@ -108,6 +108,7 @@ export default function Search() {
       const data = await res.json();
       if (data && data.response && data.response.airports) {
         setSuggestedToAirports(data.response.airports);
+        console.log(data);
       }
     } else {
       setSuggestedToAirports([]); // Clear suggestions if less than 3 characters
