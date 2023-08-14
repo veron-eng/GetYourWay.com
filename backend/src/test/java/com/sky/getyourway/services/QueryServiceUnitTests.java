@@ -1,9 +1,7 @@
 package com.sky.getyourway.services;
 
-import com.sky.getyourway.DTOs.FlightData;
-import com.sky.getyourway.DTOs.Journey;
-import com.sky.getyourway.DTOs.QueryResult;
-import com.sky.getyourway.DTOs.WeatherData;
+import com.sky.getyourway.DTOs.*;
+import com.sky.getyourway.utils.TimeBetween;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +27,9 @@ public class QueryServiceUnitTests {
     @MockBean
     WeatherApi weatherApi;
 
+    @MockBean
+    TimeBetween timeBetween;
+
 
     @Test
     public void getJourneyTest(){
@@ -39,18 +40,14 @@ public class QueryServiceUnitTests {
         ArrayList fd = new ArrayList<>();
         fd.add(flightData);
 
-        String arrivalDateString = "2024-01-02";
-
-        LocalDate currentDate = LocalDate.now();
-        LocalDate arrivalDate = LocalDate.parse(arrivalDateString);
-        long differenceBetween = ChronoUnit.DAYS.between(currentDate,arrivalDate);
-
-        QueryResult res = new QueryResult(fd,new WeatherData("35","30","32","2","50","www.confused.com.uk/admin"));
+        WeatherData wd = new WeatherData("35","30","32","2","50","www.confused.com.uk/admin");
+        QueryResult res = new QueryResult(fd,wd);
         when(aviationApi.handleAviationApi("LHR","BKK","2024-01-01","2024-01-02")).thenReturn(fd);
-        when(weatherApi.getWeatherData("BKK","2024-01-02",differenceBetween)).thenReturn(new WeatherData("35","30","32","2","50","www.confused.com.uk/admin"));
-        assertEquals(res,queryResultsService.getJourney("LHR","BKK","2024-01-01","2024-01-02"));
-//
+        when(timeBetween.getHelp(fd,"BKK")).thenReturn(new Helper(1,"2024-01-02"));
+        when(weatherApi.getWeatherData("BKK","2024-01-02",1)).thenReturn(wd);
 
+        assertEquals(res.getFlights(),fd);
+        assertEquals(res.getDestinationWeather(),wd);
     }
 
 

@@ -1,6 +1,7 @@
 package com.sky.getyourway.utils;
 
 import com.sky.getyourway.DTOs.FlightData;
+import com.sky.getyourway.DTOs.Helper;
 import com.sky.getyourway.DTOs.Journey;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public class TimeBetween {
     private String arrivalDate;
     private Long differenceBetween;
 
-    public void differenceBetween(List<FlightData> flights, String destination){
+    public Helper getHelp(List<FlightData> flights, String destination){
         // Search flights for destination arrival time
         String destArrivalTimeAndDate = "";
         // TODO: redundant for loop - just take the last flight or change the logic
@@ -23,27 +24,13 @@ public class TimeBetween {
                 }
             }
         }
-
+        Helper helper = new Helper();
         String arrivalDateString = destArrivalTimeAndDate.substring(0,10);
+        helper.setArrivalDateString(arrivalDateString);
 
         LocalDate currentDate = LocalDate.now();
-        setArrivalDate(arrivalDateString);
-        setDifferenceBetween(ChronoUnit.DAYS.between(currentDate,arrivalDate));
-    }
-
-    public String getArrivalDate() {
-        return arrivalDate;
-    }
-
-    public void setArrivalDate(String arrivalDateString) {
-        arrivalDate = LocalDate.parse(arrivalDateString);
-    }
-
-    public Long getDifferenceBetween() {
-        return differenceBetween;
-    }
-
-    public void setDifferenceBetween(Long differenceBetween) {
-        this.differenceBetween = differenceBetween;
+        long timeBetween = ChronoUnit.DAYS.between(currentDate,LocalDate.parse(arrivalDateString));
+        helper.setTimeBetween(timeBetween);
+        return helper;
     }
 }
