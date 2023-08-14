@@ -1,9 +1,9 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Journey from "@/app/results/_components/_ListViewComponents/Journey.tsx";
 
 describe("<Journey />", () => {
-  it("displays the departure and arrival airport", () => {
+  it("displays the departure and arrival airport for both start and end journeys", () => {
     const mockProps = {
       startJourney: {
         departureAirport: "LAX",
@@ -28,27 +28,10 @@ describe("<Journey />", () => {
       ],
       handleStopsClick: jest.fn(),
     };
+    
+    const { getByText } = render(<Journey {...mockProps} />);
 
-    it("displays the departure and arrival airport for both start and end journeys", () => {
-      const { getByText } = render(<Journey {...mockProps} />);
-
-      expect(getByText("LGW")).toBeInTheDocument();
-      expect(getByText("FCO")).toBeInTheDocument();
-    });
-
-    // it("displays the correct summed duration", () => {
-    //   const { getByText } = render(<Journey {...mockProps} />);
-    //   // 2h 25m + 2h 45m + 3h = 8h 10m
-    //   expect(getByText("8h 10m")).toBeInTheDocument();
-    // });
-
-    // it('handles "See Stops" button click', () => {
-    //   const { getByText } = render(<Journey {...mockProps} />);
-    //   const button = getByText(/See Stops/);
-    //   fireEvent.click(button);
-    //   expect(mockProps.handleStopsClick).toHaveBeenCalled();
-    // });
-
-    // Add more test scenarios as needed!
+    expect(getByText("LAX")).toBeInTheDocument();
+    expect(getByText("FCO")).toBeInTheDocument();
   });
 });

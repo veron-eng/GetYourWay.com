@@ -4,6 +4,8 @@ export interface Journey {
   arrivalAirport: string;
   arrivalScheduledTime: string;
   duration: string;
+  flightNumber: string;
+
 }
 
 export interface Flight {

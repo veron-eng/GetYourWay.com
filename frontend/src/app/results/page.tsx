@@ -29,6 +29,7 @@ export default function Results({
         `http://localhost:8000/getFlights/${from}/${to}/${leave}/${ret}`
       );
       setFlightsData(result.data);
+      console.log(result.data)
     } catch (error) {
       alert("Sorry, no flights found for your given locations and dates.");
       router.push("/");

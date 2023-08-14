@@ -28,7 +28,7 @@ export default function Journey({
     return `${totalHours}h ${remainingMinutes}m`;
   };
   return (
-    <div className="flex justify-evenly items-center space-x-4 sm:space-x-2">
+    <div data-testid="flight-cards-test" className="flex justify-evenly items-center space-x-4 sm:space-x-2">
       <div>
         <div className="text-lg sm:text-sm">
           {startJourney.departureAirport}
