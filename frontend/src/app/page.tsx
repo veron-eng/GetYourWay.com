@@ -253,8 +253,8 @@ export default function Search() {
     <div className="flex flex-col gap-y-8 items-center justify-center h-[calc(100vh-128px)] relative">
       <div className="w-screen absolute top-0 sky-button-gradient h-[5px] z-40"></div>
       <div className="w-screen h-[calc(100vh-128px)] absolute background-image "></div>
-      <section className="flex flex-col items-center justify-center bg-[rgba(44,46,93,0.56)] shadow-2xl z-30 w-full px-6 rounded-2xl min-h-[360px] md:py-6 gap-y-7">
-        <h1 className="relative sm:text-4xl md:text-5xl  text-7xl text-glow  text-white font-bold w-full tracking-wide">
+      <section className="flex flex-col sm:scale-75 py-10 items-center justify-center bg-[rgba(44,46,93,0.56)] shadow-2xl z-30 w-full px-6 rounded-2xl  md:py-6 gap-y-7">
+        <h1 className="relative md:text-4xl text-7xl text-glow  text-white font-bold w-full tracking-wide">
           Find your next{" "}
           <span className="bg-gradient-text bg-clip-text text-transparent px-1 rounded-lg typewriter-text">
             {words[wordIndex]}
