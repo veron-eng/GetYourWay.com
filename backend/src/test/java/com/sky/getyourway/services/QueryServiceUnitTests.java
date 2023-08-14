@@ -45,10 +45,22 @@ public class QueryServiceUnitTests {
         LocalDate arrivalDate = LocalDate.parse(arrivalDateString);
         long differenceBetween = ChronoUnit.DAYS.between(currentDate,arrivalDate);
 
-        QueryResult res = new QueryResult(fd,new WeatherData("35","30","32","2","50","www.confused.com.uk/admin"));
+        WeatherData wd = new WeatherData("35","30","32","2","50","www.confused.com.uk/admin");
+
+        QueryResult res = new QueryResult(fd,wd);
         when(aviationApi.handleAviationApi("LHR","BKK","2024-01-01","2024-01-02")).thenReturn(fd);
-        when(weatherApi.getWeatherData("BKK","2024-01-02",differenceBetween)).thenReturn(new WeatherData("35","30","32","2","50","www.confused.com.uk/admin"));
-        assertEquals(res,queryResultsService.getJourney("LHR","BKK","2024-01-01","2024-01-02"));
+        when(weatherApi.getWeatherData("BKK","2024-01-02",differenceBetween)).thenReturn(wd);
+        QueryResult actual = queryResultsService.getJourney("LHR","BKK","2024-01-01","2024-01-02");
+        //assertEquals(res.getFlights(),actual.getFlights());
+        //assertEquals(res.getDestinationWeather().getMaxTemperature(),actual.getDestinationWeather().getMaxTemperature());
+//        assertEquals(res.getDestinationWeather().getAvgTemperature(),actual.getDestinationWeather().getAvgTemperature());
+//        assertEquals(res.getDestinationWeather().getIcon(),actual.getDestinationWeather().getIcon());
+        //assertEquals(res.getDestinationWeather(),actual.getDestinationWeather());
+        assertEquals(res,actual);
+
+
+
+
 //
 
     }
