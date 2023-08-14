@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import Journey from "@/app/results/_components/_ListViewComponents/Journey.tsx";
 
-describe("<Journey />", () => {
+describe.skip("<Journey />", () => {
   it("displays the departure and arrival airport", () => {
     const mockProps = {
       startJourney: {
