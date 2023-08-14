@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.sky.getyourway.utils;
 
 import com.sky.getyourway.DTOs.FlightData;

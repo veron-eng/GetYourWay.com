@@ -2,11 +2,13 @@ package com.sky.getyourway.services;
 
 import com.sky.getyourway.DTOs.*;
 import com.sky.getyourway.utils.TimeBetween;
+import com.sky.getyourway.DTOs.FlightData;
+import com.sky.getyourway.DTOs.Journey;
+import com.sky.getyourway.DTOs.QueryResult;
+import com.sky.getyourway.DTOs.WeatherData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
