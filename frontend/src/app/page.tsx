@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 //Router
 import { useRouter } from "next/navigation";
+import InputField from "./_components/InputField";
 
 export default function Search() {
   const [flightsData, setFlightsData] = useState(null);
@@ -86,6 +87,7 @@ export default function Search() {
   };
 
   const handleToChange = async (event: any) => {
+    console.log('handling change...')
     const value = event.target.value;
     setToValue(value);
 
@@ -263,6 +265,18 @@ export default function Search() {
         <div className="flex-col flex gap-y-3 items-end w-full">
           <div className="flex md:flex-col md:gap-y-3 w-full gap-x-0.5">
             {/* From Airport Input */}
+            {/* <InputField
+              id="fromAirport"
+              label="From"
+              placeholder="Country, city or airport"
+              value={fromValue}
+              onChange={handleFromChange}
+              inputRef={fromInputRef}
+              suggestionRef={fromSuggestionRef}
+              suggestedOptions={suggestedFromAirports}
+              setValue={setFromValue}
+              setSuggestedOptions={setSuggestedFromAirports}
+            /> */}
             <div className="relative flex-1 flex flex-col">
               <label
                 htmlFor="fromAirport"
