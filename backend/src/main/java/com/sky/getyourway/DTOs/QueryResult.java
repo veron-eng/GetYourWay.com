@@ -2,12 +2,12 @@ package com.sky.getyourway.DTOs;
 
 import java.util.List;
 
-public class JourneyData {
+public class QueryResult {
     private List<FlightData> flights;
     private WeatherData destinationWeather;
 
 
-    public JourneyData(List<FlightData> flights, WeatherData destinationWeather) {
+    public QueryResult(List<FlightData> flights, WeatherData destinationWeather) {
         this.flights = flights;
         this.destinationWeather = destinationWeather;
     }
