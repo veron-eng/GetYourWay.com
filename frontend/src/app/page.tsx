@@ -398,6 +398,7 @@ export default function Search() {
           </div>
 
           <button
+            id='searchButton'
             onClick={printData}
             className="bg-skyBlue text-offWhite rounded-md px-4 py-3 font-bold"
           >
