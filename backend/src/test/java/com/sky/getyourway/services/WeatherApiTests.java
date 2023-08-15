@@ -41,13 +41,5 @@ public class WeatherApiTests {
 //    }
 
 
-    @Test
-    public void testGetWeather(){
-        int correctStatusCode = 200;
-        //build and call the api
-        String weatherApiKey = System.getenv("GYW_WEATHER_API_KEY");
-        String destination = "London";
-        HttpStatusCode returnCode = Request.makeRequest2((String.format("http://api.weatherapi.com/v1/%s.json?key=%s&q=%s%s","forecast",weatherApiKey, destination,"&days=10&aqi=no&alerts=no"))).getStatusCode();
-        assertEquals(correctStatusCode,returnCode.value());
-    }
+
 }

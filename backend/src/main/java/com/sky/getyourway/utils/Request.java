@@ -7,15 +7,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 public class Request {
-    public static String makeRequest(String uri){
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(uri,String.class);
-        return result;
-    }
+//    public static String makeRequest(String uri){
+//        RestTemplate restTemplate = new RestTemplate();
+//        String result = restTemplate.getForObject(uri,String.class);
+//        return result;
+//    }
 
-    public static ResponseEntity makeRequest2(String uri){
+
+    public static ResponseEntity makeRequest(String url){
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return response;
     }
 

@@ -6,6 +6,7 @@ import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatusCode;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,5 +64,18 @@ public class requestTest {
                             .and("adults", 2)
                             .and("max", 1));
         });
+    }
+
+    @Test
+    public void testRequestWeather(){
+        int correctStatusCode = 200;
+        //build and call the api
+        String weatherApiKey = System.getenv("GYW_WEATHER_API_KEY");
+        String destination = "London";
+        String arrivalDate = "2023-09-14";
+        HttpStatusCode returnCode = Request.makeRequest((String.format("http://api.weatherapi.com/v1/%s.json?key=%s&q=%s%s","forecast",weatherApiKey, destination,"&days=10&aqi=no&alerts=no")),1).getStatusCode();
+        HttpStatusCode returnCode2 = Request.makeRequest((String.format("http://api.weatherapi.com/v1/%s.json?key=%s&q=%s%s","future", weatherApiKey, destination, "&dt=" + arrivalDate)),1).getStatusCode();
+        assertEquals(correctStatusCode,returnCode.value());
+        assertEquals(correctStatusCode,returnCode2.value());
     }
 }
