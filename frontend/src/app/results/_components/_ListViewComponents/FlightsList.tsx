@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Journey,
   FlightsData,
 } from "@/app/results/_interfaces/flightsInterfaces";
 import JourneyInfo from "./Journey";
 import ConnectingFlightsModal from "./ConnectingFlightsModal";
+import Stripe from "stripe";
+import { loadStripe } from "@stripe/stripe-js";
+import { AuthContext } from "@/app/_context/AuthProvider";
+
 interface FlightsListProps {
   flightsData: FlightsData;
   outboundTimesFilterRange: number[];
@@ -18,6 +22,7 @@ export default function FlightsList({
 }: FlightsListProps) {
   const [showModal, setShowModal] = useState(false);
   const [selectedJourney, setSelectedJourney] = useState<Journey[]>([]);
+  const { isSignedIn, user } = useContext(AuthContext);
 
   const handleStopsClick = (journeys: Journey[]) => {
     setSelectedJourney(journeys);
@@ -96,7 +101,45 @@ export default function FlightsList({
               <div className="text-2xl sm:text-lg font-bold">
                 ${flight.price}
               </div>
-              <button className="bg-skyBlue text-white py-1 rounded-full w-full mt-4">
+              <button
+                onClick={async () => {
+                  const stripe = await loadStripe(
+                    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+                  );
+                  const body = {
+                    price: flight.price,
+                    departureAirport: flight.journeys[0].departureAirport,
+                    arrivalAirport:
+                      flight.journeys[flight.journeys.length / 2 - 1]
+                        .arrivalAirport,
+                    departureTime: flight.journeys[0].departureScheduledTime,
+                    arrivalTime:
+                      flight.journeys[flight.journeys.length - 1]
+                        .arrivalScheduledTime,
+                    departingFlightNumber: flight.journeys[0].flightNumber,
+                    returningFlightNumber:
+                      flight.journeys[flight.journeys.length - 1].flightNumber,
+                  };
+                  console.log(body);
+                  try {
+                    const result = await fetch("/api/checkout_sessions", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(body),
+                    });
+
+                    const data =
+                      (await result.json()) as Stripe.Checkout.Session;
+                    const sessionId = data.id;
+                    stripe?.redirectToCheckout({ sessionId });
+                  } catch (err: any) {
+                    console.log(err.message);
+                  }
+                }}
+                className="bg-skyBlue text-white py-1 rounded-full w-full mt-4"
+              >
                 Book
               </button>
             </div>

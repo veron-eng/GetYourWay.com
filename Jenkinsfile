@@ -19,6 +19,14 @@ pipeline {
         '''
             }
         }
+        stage('Test the app') {
+            steps {
+                sh '''
+                    cd frontend
+                    npm test
+                '''
+            }
+        }
         stage('Build the app') {
             steps {
                     sh '''

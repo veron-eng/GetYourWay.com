@@ -83,7 +83,8 @@ export default function ConnectingFlightsModal({
         onClick={() => setShowModal(false)}
       >
         <div
-          className="bg-white p-2 py-10 rounded-lg flex flex-col gap-y-4 items-center relative sm:text-sm"
+          role="dialog"
+          className="bg-white  p-2 py-10 rounded-lg flex flex-col gap-y-4 items-center relative sm:text-sm"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="absolute top-2 right-2">

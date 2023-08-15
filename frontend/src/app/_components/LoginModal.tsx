@@ -1,6 +1,11 @@
-import { useContext, useState, ReactNode, MouseEvent, FC } from "react";
+import { ReactNode, MouseEvent, FC } from "react";
 import Image from "next/image";
-import { signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithRedirect,
+  GoogleAuthProvider,
+  AuthProvider,
+  FacebookAuthProvider,
+} from "firebase/auth";
 import { auth } from "@/firebaseAuth";
 
 const provider = new GoogleAuthProvider();
@@ -14,7 +19,7 @@ interface LoginPageModalProps {
 export default function Login({ isOpen, onClose }: LoginPageModalProps) {
   if (!isOpen) return null;
 
-  const signInWithGoogle = () => {
+  const signInWithAuthProvider = (provider: AuthProvider) => {
     signInWithRedirect(auth, provider);
   };
 
@@ -36,20 +41,16 @@ export default function Login({ isOpen, onClose }: LoginPageModalProps) {
 
         {/* Heading */}
         <h1 className="text-3xl font-bold">Get the full experience</h1>
-        <p className="text-gray-900">You will need to sign in to access additional features such as booking your flights.</p>
+        <p className="text-gray-900">
+          You will need to sign in to access additional features such as booking
+          your flights.
+        </p>
 
         {/* Sign in buttons */}
-        <div className="flex flex-col gap-y-5 font-bold">
-          <button className="relative bg-white rounded-full w-72 py-3 border-2 border-black">
-            <Image
-              src="/apple-logo.svg"
-              className="absolute left-8"
-              width={18}
-              height={18}
-              alt="Apple logo"
-            />
-            <span>Continue with Apple</span>
-          </button>
+        <div
+          onClick={() => signInWithAuthProvider(new FacebookAuthProvider())}
+          className="flex flex-col gap-y-7 font-bold"
+        >
           <button className="relative bg-[#1877F2] text-offWhite rounded-full w-72 py-3">
             <Image
               src="/fb-logo.svg"
@@ -61,7 +62,7 @@ export default function Login({ isOpen, onClose }: LoginPageModalProps) {
             <span>Continue with Facebook</span>{" "}
           </button>
           <button
-            onClick={signInWithGoogle}
+            onClick={() => signInWithAuthProvider(new GoogleAuthProvider())}
             className="relative bg-[#DB4437F4] text-offWhite rounded-full w-72 py-3"
           >
             <Image

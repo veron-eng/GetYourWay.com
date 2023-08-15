@@ -1,0 +1,26 @@
+{
+    "response": {
+        "airports": [
+            {
+                "iata_code": "LHR",
+                "name": "London Heathrow Airport"
+            },
+            {
+                "iata_code": "LCY",
+                "name": "London City Airport"
+            },
+            {
+                "iata_code": "LTN",
+                "name": "London Luton Airport"
+            },
+            {
+                "iata_code": "STN",
+                "name": "London Stanstead Airport"
+            },
+            {
+                "iata_code": "LGW",
+                "name": "London Gatwick Airport"
+            }
+        ]
+    }
+}
