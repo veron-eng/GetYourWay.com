@@ -8,7 +8,9 @@ interface MapComponentProps {
   flightsData: FlightsData
 }
 
-const MapComponent = ({ flightsData }: MapComponentProps) => {
+const MapView = ({ flightsData }: MapComponentProps) => {
+  console.log(flightsData)
+
   // marker requests
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -76,14 +78,7 @@ const MapComponent = ({ flightsData }: MapComponentProps) => {
     setMarkers([]);
   };
 
-  const [data, setData] = useState<any>([]);
-  useEffect(() => {
-    if (flightsData) {
-      setData(flightsData);
-    }
-  }, [flightsData]);
-
-  if (data.length === 0) {
+  if (flightsData === undefined || flightsData === null) {
     return <>Loading...</>;
   }
 
@@ -109,12 +104,12 @@ const MapComponent = ({ flightsData }: MapComponentProps) => {
     <>
       <div>
         <div className="flex h-[616px] rounded-lg bg-gray-200 p-2 justify-center border border-gray-300">
-          <div className="w-1/4 bg-gray-100">
+          <div id='weatherItems' className="w-1/4 bg-gray-100">
             <MapModal
               isOpen={isMapModalOpen}
               onClose={closeMapModal}
-              flights={data.flights}
-              weather={data.destinationWeather}
+              flights={flightsData.flights}
+              weather={flightsData.destinationWeather}
               updateMarkerCenter={updateMarkercenter}
               onAirportCodesReceived={handleAirportCodes}
             />
@@ -133,4 +128,4 @@ const MapComponent = ({ flightsData }: MapComponentProps) => {
   );
 };
 
-export default MapComponent;
+export default MapView;

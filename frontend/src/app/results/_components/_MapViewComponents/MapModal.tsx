@@ -36,6 +36,7 @@ const MapModal = ({
       alert(error);
     }
   };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -44,6 +45,7 @@ const MapModal = ({
         <div className="modal-scrollable-content">
           {flights.map((flight: any, index: any) => (
             <JourneyCardContainer
+              key={index}
               index={index}
               onInspectClick={handleInspectClick}
               flight={flight}

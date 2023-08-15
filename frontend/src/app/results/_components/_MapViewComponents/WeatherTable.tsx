@@ -6,10 +6,12 @@ interface WeatherTableProps {
 }
 
 function WeatherTable({ weather }: WeatherTableProps) {
+  console.log('MapTable rendering!')
+  
   return (
     <div>
       <h2>Weather at destination:</h2>
-      <ul>
+      <ul id='weatherItems'>
         <li>Max temperature: {weather.maxTemperature}&#x2103;</li>
         <li>Min temperature: {weather.minTemperature}&#x2103;</li>
         <li>Average temperature: {weather.avgTemperature}&#x2103;</li>
