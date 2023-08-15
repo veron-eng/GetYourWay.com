@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ListView from "./_components/_ListViewComponents/ListView";
-import MapView from "./mapView/MapView";
+import MapView from "./_components/_MapViewComponents/MapView";
 import { useRouter } from "next/navigation";
 
 export default function Results({
@@ -29,7 +29,6 @@ export default function Results({
         `http://localhost:8000/getFlights/${from}/${to}/${leave}/${ret}`
       );
       setFlightsData(result.data);
-      console.log(result.data)
     } catch (error) {
       alert("Sorry, no flights found for your given locations and dates.");
       router.push("/");

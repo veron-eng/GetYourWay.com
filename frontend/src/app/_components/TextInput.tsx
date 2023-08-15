@@ -43,12 +43,12 @@ function TextInput({
 			}
 
 			if (value.length > 2) {
-				const data = getMockAirports();
+				// const data = getMockAirports();
 				// TODO: uncomment this for production
-				// const res = await fetch(
-				//   `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
-				// );
-				// const data = await res.json();
+				const res = await fetch(
+				  `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
+				);
+				const data = await res.json();
 				if (data.error) throw new Error(data.error.message)
 				else if (data && data.response && data.response.airports) {
 					setSuggestedOptions(data.response.airports);
