@@ -19,6 +19,9 @@ function DateInput({
 	setValue,
 	relativePosition
 }: DateInputProps) {
+	// const boxClass = shapeClass[relativePosition];
+	// console.log(boxClass);
+
 	return (
 		<div className="flex flex-col justify-between">
 			<label
@@ -30,7 +33,7 @@ function DateInput({
 			<DatePicker
 				id={forId}
 				selected={value}
-				className={shapeClass[relativePosition]}
+				className={relativePosition}
 				onChange={ (date) => setValue(date) }
 				dateFormat="dd/MM/yyyy"
 				placeholderText={placeholder}

@@ -24,6 +24,9 @@ function TextInput({
 	const inputRef = useRef<HTMLInputElement>(null);
 	const suggestionRef = useRef<HTMLDivElement>(null);
 
+	// const boxClass = shapeClass[relativePosition];
+	// console.log(boxClass);
+
 	const handleChange = async (event: any) => {
 		try {
 			const value = event.target.value;
@@ -90,7 +93,7 @@ function TextInput({
 			<input
 				id={forId}
 				placeholder={placeholder}
-				className={shapeClass[relativePosition]}
+				className={relativePosition}
 				type="text"
 				value={value}
 				onChange={handleChange}

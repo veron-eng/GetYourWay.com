@@ -44,6 +44,12 @@ export default function Search() {
     );
   };
 
+  const shapeClass: { [key: string]: string } = {
+    "left": "border px-2 h-16 rounded-l-xl md:rounded-xl w-full",
+    "centre": "border px-2 h-16 w-full md:rounded-xl",
+    "right": "border px-2 rounded-r-xl md:rounded-xl h-16 w-full"
+  }
+
   return (
     <div className="flex flex-col gap-y-8 items-center justify-center h-[calc(100vh-128px)] relative">
       <div className="w-screen absolute top-0 sky-button-gradient h-[5px] z-40"></div>
@@ -59,7 +65,7 @@ export default function Search() {
               placeholder="Country, city or airport"
               value={fromAirport}
               setValue={setFromAirport}
-              relativePosition="left"
+              relativePosition={shapeClass["left"]}
             />
 
             {/* To Airport Input */}
@@ -69,7 +75,7 @@ export default function Search() {
               placeholder="Country, city or airport"
               value={toAirport}
               setValue={setToAirport}
-              relativePosition="centre"
+              relativePosition={shapeClass["centre"]}
             />
 
             {/* Depart Date Picker */}
@@ -79,7 +85,7 @@ export default function Search() {
               placeholder="Depart date"
               value={fromDate}
               setValue={setFromDate}
-              relativePosition="centre"
+              relativePosition={shapeClass["centre"]}
             />
 
             {/* Return Date Picker */}
@@ -89,7 +95,7 @@ export default function Search() {
               placeholder="Return date"
               value={toDate}
               setValue={setToDate}
-              relativePosition="right"
+              relativePosition={shapeClass["right"]}
             />
           </div>
 
