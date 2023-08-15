@@ -6,8 +6,6 @@ interface WeatherTableProps {
 }
 
 function WeatherTable({ weather }: WeatherTableProps) {
-  console.log('MapTable rendering!')
-  
   return (
     <div>
       <h2>Weather at destination:</h2>

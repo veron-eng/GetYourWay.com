@@ -9,8 +9,6 @@ interface MapComponentProps {
 }
 
 const MapView = ({ flightsData }: MapComponentProps) => {
-  console.log(flightsData)
-
   // marker requests
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
