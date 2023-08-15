@@ -3,6 +3,7 @@ import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 public class Request {
@@ -10,6 +11,12 @@ public class Request {
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(uri,String.class);
         return result;
+    }
+
+    public static ResponseEntity makeRequest2(String uri){
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
+        return response;
     }
 
     public static FlightOfferSearch[] amadeusApiCall(String source, String destination, String departure, String ret, Amadeus amadeus) throws ResponseException {
