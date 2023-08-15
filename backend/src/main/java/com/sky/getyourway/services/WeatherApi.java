@@ -26,10 +26,10 @@ public class WeatherApi {
 
         if (timeDifference < 14){
             // 14-day forecast
-            returnedData = Request.makeRequest(getUrl("forecast", weatherApiKey, destination, "&days=10&aqi=no&alerts=no")).getBody().toString();
+            returnedData = Request.makeRequest(getUrl("forecast", weatherApiKey, destination, "&days=10&aqi=no&alerts=no"));
         } else {
             //future
-            returnedData = Request.makeRequest(getUrl("future", weatherApiKey, destination, "&dt=" + arrivalDate)).getBody().toString();
+            returnedData = Request.makeRequest(getUrl("future", weatherApiKey, destination, "&dt=" + arrivalDate));
         }
 
         return parseData(returnedData, arrivalDate);

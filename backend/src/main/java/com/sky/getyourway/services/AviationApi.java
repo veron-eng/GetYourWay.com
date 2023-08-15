@@ -24,7 +24,6 @@ public class AviationApi {
                 .build();
         try{
             flightOffersSearches = Request.amadeusApiCall(source, destination, departure, ret, amadeus);
-            System.out.println(flightOffersSearches[0].getResponse().getStatusCode());
         }
         catch (Exception e){
             System.out.println(e.getMessage());

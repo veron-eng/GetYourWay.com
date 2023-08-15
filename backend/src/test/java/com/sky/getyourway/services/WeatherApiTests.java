@@ -1,19 +1,14 @@
 package com.sky.getyourway.services;
 
 import com.sky.getyourway.DTOs.WeatherData;
-import com.sky.getyourway.services.WeatherApi;
-import com.sky.getyourway.utils.Request;
 import com.sky.getyourway.utils.TestData;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WeatherApiTests {
     @Test
-    void getFutureWeatherData() {
+    void parseDataTest() {
         WeatherApi api = new WeatherApi();
         String data = TestData.getFutureWeatherData();
         WeatherData day = api.parseData(data, "2024-04-21");
