@@ -1,5 +1,4 @@
 import React, { RefObject, useRef, useState, useEffect } from 'react'
-import { shapeClass } from '@/utils/style';
 import { getMockAirports } from '@/utils/mockData';
 
 interface TextInputProps {

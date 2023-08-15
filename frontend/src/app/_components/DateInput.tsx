@@ -1,6 +1,5 @@
 import React from "react"
 import DatePicker from "react-datepicker"
-import { shapeClass } from "@/utils/style";
 
 interface DateInputProps {
 	label: string;
