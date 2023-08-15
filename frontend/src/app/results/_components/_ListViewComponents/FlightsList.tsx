@@ -1,13 +1,15 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   Journey,
   FlightsData,
 } from "@/app/results/_interfaces/flightsInterfaces";
 import JourneyInfo from "./Journey";
 import ConnectingFlightsModal from "./ConnectingFlightsModal";
+import LoginModal from "@/app/_components/LoginModal";
 import Stripe from "stripe";
 import { loadStripe } from "@stripe/stripe-js";
 import { AuthContext } from "@/app/_context/AuthProvider";
+import { formatTime } from "@/utils/formatTime";
 
 interface FlightsListProps {
   flightsData: FlightsData;
@@ -21,8 +23,66 @@ export default function FlightsList({
   returnTimesFilterRange,
 }: FlightsListProps) {
   const [showModal, setShowModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [selectedJourney, setSelectedJourney] = useState<Journey[]>([]);
   const { isSignedIn, user } = useContext(AuthContext);
+
+  const triggerStripe = async (body: any) => {
+    const stripe = await loadStripe(
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+    );
+
+    try {
+      const result = await fetch("/api/checkout_sessions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      const data = (await result.json()) as Stripe.Checkout.Session;
+      const sessionId = data.id;
+      stripe?.redirectToCheckout({ sessionId });
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
+  const extractDate = (date: string) => {
+    const dateObj = new Date(date);
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const year = dateObj.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
+
+  const input = "2023-08-17T11:25:00";
+  console.log(extractDate(input)); // Outputs: 17/08/2023
+
+  // This useEffect will trigger the booking process if a user has logged in
+  // and they previously attempted to book.
+  useEffect(() => {
+    const attemptedToBook = localStorage.getItem("attemptedToBook");
+    const bookingBody = localStorage.getItem("bookingBody");
+    if (user && attemptedToBook && bookingBody) {
+      let body = JSON.parse(bookingBody);
+      body = { ...body, userId: user.uid, userEmail: user.email };
+      triggerStripe(body);
+      localStorage.removeItem("attemptedToBook");
+      localStorage.removeItem("bookingBody");
+    }
+  }, [user]);
+
+  const handleBooking = async () => {
+    if (isSignedIn && user) {
+      // Your existing booking logic
+    } else {
+      // Set the flag indicating the user attempted to book
+      setShowLoginModal(true);
+    }
+  };
 
   const handleStopsClick = (journeys: Journey[]) => {
     setSelectedJourney(journeys);
@@ -103,39 +163,39 @@ export default function FlightsList({
               </div>
               <button
                 onClick={async () => {
-                  const stripe = await loadStripe(
-                    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-                  );
-                  const body = {
+                  let body = {
+                    userId: user?.uid,
+                    userEmail: user?.email,
                     price: flight.price,
                     departureAirport: flight.journeys[0].departureAirport,
                     arrivalAirport:
                       flight.journeys[flight.journeys.length / 2 - 1]
                         .arrivalAirport,
-                    departureTime: flight.journeys[0].departureScheduledTime,
-                    arrivalTime:
+                    departureDate: extractDate(
+                      flight.journeys[0].departureScheduledTime
+                    ),
+                    arrivalDate: extractDate(
                       flight.journeys[flight.journeys.length - 1]
-                        .arrivalScheduledTime,
+                        .arrivalScheduledTime
+                    ),
+                    departureTime: formatTime(
+                      flight.journeys[0].departureScheduledTime
+                    ),
+                    arrivalTime: formatTime(
+                      flight.journeys[flight.journeys.length - 1]
+                        .arrivalScheduledTime
+                    ),
                     departingFlightNumber: flight.journeys[0].flightNumber,
                     returningFlightNumber:
                       flight.journeys[flight.journeys.length - 1].flightNumber,
                   };
-                  console.log(body);
-                  try {
-                    const result = await fetch("/api/checkout_sessions", {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify(body),
-                    });
 
-                    const data =
-                      (await result.json()) as Stripe.Checkout.Session;
-                    const sessionId = data.id;
-                    stripe?.redirectToCheckout({ sessionId });
-                  } catch (err: any) {
-                    console.log(err.message);
+                  if (isSignedIn && user) {
+                    triggerStripe(body);
+                  } else {
+                    localStorage.setItem("attemptedToBook", "true");
+                    localStorage.setItem("bookingBody", JSON.stringify(body));
+                    setShowLoginModal(true);
                   }
                 }}
                 className="bg-skyBlue text-white py-1 rounded-full w-full mt-4"
@@ -146,6 +206,11 @@ export default function FlightsList({
           </div>
         );
       })}
+
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      />
 
       {showModal && (
         <ConnectingFlightsModal
