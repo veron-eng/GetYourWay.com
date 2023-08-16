@@ -32,7 +32,7 @@ public class AviationApiTests {
                 .builder(apiId, apiSecret)
                 .setLogLevel("debug") // or warn
                 .build();
-        flightOffersSearches = Request.amadeusApiCall("LHR", "CDG", "2024-01-01", "2024-01-02", amadeus);
+        flightOffersSearches = Request.amadeusApiCall("LHR", "CDG", "2024-01-01", "2024-01-02","1", amadeus);
 
         // test value
         List<FlightData> fd = new ArrayList<>();

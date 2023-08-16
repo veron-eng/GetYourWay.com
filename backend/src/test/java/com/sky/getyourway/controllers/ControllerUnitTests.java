@@ -50,11 +50,11 @@ public class ControllerUnitTests {
                         "www.confused.com.uk/admin"
                 ));
         when(this.queryResultsService
-                .getJourney("LHR","BKK","2023-09-09","2023-09-12"))
+                .getJourney("LHR","BKK","2023-09-09","2023-09-12","1"))
                 .thenReturn(res);
         assertThat(new ResponseEntity<QueryResult>(res, HttpStatus.OK))
                 .isEqualTo(this.controller
-                        .getFlights("LHR","BKK","2023-09-09","2023-09-12")
+                        .getFlights("LHR","BKK","2023-09-09","2023-09-12","1")
                 );
     }
 

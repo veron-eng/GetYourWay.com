@@ -20,13 +20,13 @@ public class Request {
         return response;
     }
 
-    public static FlightOfferSearch[] amadeusApiCall(String source, String destination, String departure, String ret, Amadeus amadeus) throws ResponseException {
+    public static FlightOfferSearch[] amadeusApiCall(String source, String destination, String departure, String ret, String passengers, Amadeus amadeus) throws ResponseException {
         FlightOfferSearch[] flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
                 Params.with("originLocationCode", source)
                         .and("destinationLocationCode", destination)
                         .and("departureDate", departure)//YYYY-MM-DD
                         .and("returnDate", ret)
-                        .and("adults", 2)
+                        .and("adults", passengers)
                         .and("max", 10));
         return flightOffersSearches;
     }
