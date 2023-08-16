@@ -19,8 +19,8 @@ public class QueryResultsService {
     @Autowired
     WeatherApi weatherApi;
 
-    public QueryResult getJourney(String source, String destination, String departure, String ret) {
-        List<FlightData> flights = aviationApi.handleAviationApi(source, destination, departure, ret);
+    public QueryResult getJourney(String source, String destination, String departure, String ret, String passengers) {
+        List<FlightData> flights = aviationApi.handleAviationApi(source, destination, departure, ret,passengers);
 
         TimeBetween timeBetween = new TimeBetween();
         Helper helper = timeBetween.getHelp(flights,destination);

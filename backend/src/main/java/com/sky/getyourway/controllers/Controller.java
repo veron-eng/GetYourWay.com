@@ -33,14 +33,15 @@ public class Controller {
 //        return queryResultsService.getJourney(source, destination, departure, ret);//dataToFrondEnd
 //    }
 
-    @GetMapping("/getFlights/{source}/{destination}/{departure}/{ret}")
+    @GetMapping("/getFlights/{source}/{destination}/{departure}/{ret}/{passengers}")
     public ResponseEntity<QueryResult> getFlights(
             @PathVariable("source") String source,
             @PathVariable("destination") String destination,
             @PathVariable("departure") String departure,
-            @PathVariable("ret") String ret
+            @PathVariable("ret") String ret,
+            @PathVariable("passengers") String passengers
     ){
-        QueryResult queryResult = queryResultsService.getJourney(source, destination, departure, ret);//dataToFrondEnd
+        QueryResult queryResult = queryResultsService.getJourney(source, destination, departure, ret, passengers);//dataToFrondEnd
         return ResponseEntity.ok(queryResult);
     }
 
