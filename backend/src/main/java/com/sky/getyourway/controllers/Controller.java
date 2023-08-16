@@ -4,6 +4,7 @@ import com.sky.getyourway.DTOs.QueryResult;
 import com.sky.getyourway.DTOs.Location;
 import com.sky.getyourway.services.QueryResultsService;
 import com.sky.getyourway.services.LocationService;
+import com.sky.getyourway.services.RecommendationEngineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class Controller {
 
     @Autowired
     LocationService locationService;
+
+    @Autowired
+    RecommendationEngineService reService;
 
 //    @GetMapping("/getFlights/{source}/{destination}/{departure}/{ret}")
 //    public QueryResult getFlights(
@@ -51,5 +55,11 @@ public class Controller {
         System.out.println(locationService.getLocation(code));
         Location location = locationService.getLocation(code);
         return ResponseEntity.ok(location);
+    }
+
+    @GetMapping("/getURL/{source}/{destination}")
+    public ResponseEntity<String> getURL(@PathVariable("source") String source, @PathVariable("destination") String destination) {
+        String url = reService.generateURL(source, destination);
+        return ResponseEntity.ok(url);
     }
 }
