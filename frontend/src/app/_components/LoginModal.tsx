@@ -1,4 +1,4 @@
-import { ReactNode, MouseEvent, FC } from "react";
+import { ReactNode, MouseEvent } from "react";
 import Image from "next/image";
 import {
   signInWithRedirect,
@@ -8,13 +8,14 @@ import {
 } from "firebase/auth";
 import { auth } from "@/firebaseAuth";
 
-const provider = new GoogleAuthProvider();
-
 interface LoginPageModalProps {
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
 }
+
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 export default function Login({ isOpen, onClose }: LoginPageModalProps) {
   if (!isOpen) return null;
@@ -47,11 +48,11 @@ export default function Login({ isOpen, onClose }: LoginPageModalProps) {
         </p>
 
         {/* Sign in buttons */}
-        <div
-          onClick={() => signInWithAuthProvider(new FacebookAuthProvider())}
-          className="flex flex-col gap-y-7 font-bold"
-        >
-          <button className="relative bg-[#1877F2] text-offWhite rounded-full w-72 py-3">
+        <div className="flex flex-col gap-y-7 font-bold">
+          <button
+            onClick={() => signInWithAuthProvider(facebookProvider)}
+            className="relative bg-[#1877F2] text-offWhite rounded-full w-72 py-3"
+          >
             <Image
               src="/fb-logo.svg"
               className="absolute top-[13px] left-8"
@@ -62,7 +63,7 @@ export default function Login({ isOpen, onClose }: LoginPageModalProps) {
             <span>Continue with Facebook</span>{" "}
           </button>
           <button
-            onClick={() => signInWithAuthProvider(new GoogleAuthProvider())}
+            onClick={() => signInWithAuthProvider(googleProvider)}
             className="relative bg-[#DB4437F4] text-offWhite rounded-full w-72 py-3"
           >
             <Image

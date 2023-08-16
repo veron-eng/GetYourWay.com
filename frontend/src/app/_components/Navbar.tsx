@@ -48,19 +48,27 @@ export default function Navbar() {
       {/* Links */}
       {isSignedIn === undefined ? null : isSignedIn && user ? (
         <div className="relative" ref={dropdownRef}>
-          <button onClick={toggleDropdown}>
-            {user.photoURL ? (
-              <img
-                src={user.photoURL}
-                className="rounded-full w-14"
-                alt="User profile photo"
-              />
-            ) : (
-              <span className="rounded-full bg-skyBlue text-offWhite capitalize text-center w-14 h-14 flex items-center justify-center font-bold">
-                {user.displayName?.charAt(0)}
-              </span>
-            )}
-          </button>
+          <div className="flex items-center gap-x-10">
+            <Link
+              className="font-bold text-darkBlue hover:scale-105 sm:hidden"
+              href="/mybookings"
+            >
+              My Bookings
+            </Link>
+            <button onClick={toggleDropdown}>
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  className="rounded-full w-14"
+                  alt="User profile photo"
+                />
+              ) : (
+                <span className="rounded-full bg-skyBlue text-offWhite capitalize text-center w-14 h-14 flex items-center justify-center font-bold">
+                  {user.displayName?.charAt(0)}
+                </span>
+              )}
+            </button>
+          </div>
           {dropdownOpen && (
             <div className="absolute z-50 right-0 mt-2 w-64 p-2 bg-white border rounded-md shadow-lg divide-y divide-gray-100">
               <div className="px-4 py-3">
@@ -70,6 +78,11 @@ export default function Navbar() {
                 <p className="text-sm text-gray-600">{user.email}</p>
               </div>
               <div>
+                <Link href="/mybookings">
+                  <button className="flex w-full px-4 py-2 text-sm text-left text-gray-800 hover:bg-gray-100 hover:text-gray-900">
+                    <span>My Bookings</span>
+                  </button>
+                </Link>
                 <button
                   onClick={logout}
                   className="flex w-full px-4 py-2 text-sm text-left text-gray-800 hover:bg-gray-100 hover:text-gray-900"

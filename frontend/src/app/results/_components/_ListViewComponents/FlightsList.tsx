@@ -58,9 +58,6 @@ export default function FlightsList({
     return `${day}/${month}/${year}`;
   };
 
-  const input = "2023-08-17T11:25:00";
-  console.log(extractDate(input)); // Outputs: 17/08/2023
-
   // This useEffect will trigger the booking process if a user has logged in
   // and they previously attempted to book.
   useEffect(() => {
@@ -159,13 +156,13 @@ export default function FlightsList({
             </div>
             <div className="flex-3 border-l px-3 flex flex-col justify-evenly">
               <div className="text-2xl sm:text-lg font-bold">
-                ${flight.price}
+                £{flight.price}
               </div>
               <button
                 onClick={async () => {
                   let body = {
-                    userId: user?.uid,
-                    userEmail: user?.email,
+                    userId:user?.uid,
+                    userEmail:user?.email,
                     price: flight.price,
                     departureAirport: flight.journeys[0].departureAirport,
                     arrivalAirport:
@@ -191,6 +188,7 @@ export default function FlightsList({
                   };
 
                   if (isSignedIn && user) {
+                    body = { ...body, userId: user.uid, userEmail: user.email };
                     triggerStripe(body);
                   } else {
                     localStorage.setItem("attemptedToBook", "true");
