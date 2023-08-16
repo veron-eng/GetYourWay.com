@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class AviationApi {
 
-    public List<FlightData> handleAviationApi(String source, String destination, String departure, String ret) {
+    public List<FlightData> handleAviationApi(String source, String destination, String departure, String ret, String passengers) {
         FlightOfferSearch[] flightOffersSearches = new FlightOfferSearch[0];
 
         String apiId = System.getenv("GYW_FLIGHT_API_ID");
@@ -23,7 +23,7 @@ public class AviationApi {
                 .setLogLevel("debug") // or warn
                 .build();
         try{
-            flightOffersSearches = Request.amadeusApiCall(source, destination, departure, ret, amadeus);
+            flightOffersSearches = Request.amadeusApiCall(source, destination, departure, ret, passengers, amadeus);
         }
         catch (Exception e){
             System.out.println(e.getMessage());

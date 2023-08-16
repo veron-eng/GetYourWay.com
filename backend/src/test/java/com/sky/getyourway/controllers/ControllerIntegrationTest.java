@@ -5,6 +5,7 @@ import com.sky.getyourway.DTOs.*;
 import com.sky.getyourway.controllers.Controller;
 import com.sky.getyourway.services.LocationService;
 import com.sky.getyourway.services.QueryResultsService;
+import com.sky.getyourway.services.RecommendationEngineService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class ControllerIntegrationTest {
     @MockBean
     private LocationService locationService;
 
+    @MockBean
+    private RecommendationEngineService recommendationEngineService;
+
 
     @Test
     public void getJourneySuccessfulStatus() throws Exception {
@@ -57,9 +61,9 @@ public class ControllerIntegrationTest {
         QueryResult res = new QueryResult(flights, testWeather);
 
 
-        when(this.queryResultsService.getJourney("LHR", "BKK", "2023-09-09", "2023-09-12")).thenReturn(res);
+        when(this.queryResultsService.getJourney("LHR", "BKK", "2023-09-09", "2023-09-12","1")).thenReturn(res);
 
-        mockMvc.perform(get("/getFlights/LHR/BKK/2023-09-09/2023-09-12")).
+        mockMvc.perform(get("/getFlights/LHR/BKK/2023-09-09/2023-09-12/1")).
                 andDo(print()).
                 andExpect(status().isOk()); //works up to this part perfectly
 //                .andExpect(jsonPath("$.flight").isArray());

@@ -42,7 +42,7 @@ public class QueryServiceUnitTests {
 
         WeatherData wd = new WeatherData("35","30","32","2","50","www.confused.com.uk/admin");
         QueryResult res = new QueryResult(fd,wd);
-        when(aviationApi.handleAviationApi("LHR","BKK","2024-01-01","2024-01-02")).thenReturn(fd);
+        when(aviationApi.handleAviationApi("LHR","BKK","2024-01-01","2024-01-02","1")).thenReturn(fd);
         when(timeBetween.getHelp(fd,"BKK")).thenReturn(new Helper(1,"2024-01-02"));
         when(weatherApi.getWeatherData("BKK","2024-01-02",1)).thenReturn(wd);
 

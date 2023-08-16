@@ -7,6 +7,7 @@ import com.sky.getyourway.DTOs.WeatherData;
 import com.sky.getyourway.controllers.Controller;
 import com.sky.getyourway.services.LocationService;
 import com.sky.getyourway.services.QueryResultsService;
+import com.sky.getyourway.services.RecommendationEngineService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,28 @@ public class ControllerUnitTests {
     @MockBean
     private LocationService locationService;
 
+    @MockBean
+    private RecommendationEngineService reService;
+
     @Test
     void getQueryResults(){
-        QueryResult res = new QueryResult(new ArrayList<>(), new WeatherData("35","30","32","2","50","www.confused.com.uk/admin"));
-        when(this.queryResultsService.getJourney("LHR","BKK","2023-09-09","2023-09-12")).thenReturn(res);
-        assertThat(new ResponseEntity<QueryResult>(res, HttpStatus.OK)).isEqualTo(this.controller.getFlights("LHR","BKK","2023-09-09","2023-09-12"));
+        QueryResult res = new QueryResult(
+                new ArrayList<>(),
+                new WeatherData(
+                        "35",
+                        "30",
+                        "32",
+                        "2",
+                        "50",
+                        "www.confused.com.uk/admin"
+                ));
+        when(this.queryResultsService
+                .getJourney("LHR","BKK","2023-09-09","2023-09-12","1"))
+                .thenReturn(res);
+        assertThat(new ResponseEntity<QueryResult>(res, HttpStatus.OK))
+                .isEqualTo(this.controller
+                        .getFlights("LHR","BKK","2023-09-09","2023-09-12","1")
+                );
     }
 
     @Test
@@ -45,5 +63,14 @@ public class ControllerUnitTests {
         Location loc = new Location(10.5,51.5);
         when(this.locationService.getLocation("LHR")).thenReturn(loc);
         assertThat(new ResponseEntity<Location>(loc, HttpStatus.OK)).isEqualTo(this.controller.getLocation("LHR"));
+    }
+
+    @Test
+    void getURL() {
+        String expectedURL = "localhost:3000?from=London&to=Islamabad";
+        when(this.reService.generateURL("London", "Islamabad"))
+                .thenReturn("localhost:3000?from=London&to=Islamabad");
+        assertThat(new ResponseEntity<String>(expectedURL, HttpStatus.OK))
+                .isEqualTo(this.controller.getURL("London", "Islamabad"));
     }
 }

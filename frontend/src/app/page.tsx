@@ -5,14 +5,38 @@ import { useRouter } from "next/navigation";
 import TextInput from "./_components/TextInput";
 import DateInput from "./_components/DateInput";
 import DynamicTitle from "./_components/DynamicTitle";
+import Dropdown from "./_components/Dropdown";
 
-export default function Search() {
+export default function Search({
+    searchParams,
+  }: {
+    searchParams: { [key: string]: string | undefined };
+  }) {
+  const { from, to } = searchParams;
+      
   const [fromAirport, setFromAirport] = useState("");
   const [toAirport, setToAirport] = useState("");
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
+  const [passengers, setPassengers] = useState("1");
 
   const router = useRouter();
+
+  useEffect(()=> {
+    if (from !== undefined){
+      setFromAirport(from)
+    }
+  
+    if (to !== undefined){
+      setToAirport(to)
+    }
+
+    return ()=>{
+      setToAirport("")
+      setFromAirport("")
+    }
+
+  },[])
 
   const getAirportCode = (airport: string) => {
     return airport.substring(airport.length - 4, airport.length - 1);
@@ -40,15 +64,18 @@ export default function Search() {
         "&leave=" +
         fromDateFormatted +
         "&ret=" +
-        toDateFormatted
+        toDateFormatted +
+        "&passengers=" +
+        passengers
     );
   };
 
   const shapeClass: { [key: string]: string } = {
-    "left": "border px-2 h-16 rounded-l-xl md:rounded-xl w-full",
-    "centre": "border px-2 h-16 w-full md:rounded-xl",
-    "right": "border px-2 rounded-r-xl md:rounded-xl h-16 w-full"
+    "left": "border px-2 h-16 md:rounded-xl w-full rounded-l-xl",
+    "centre": "border px-2 h-16 md:rounded-xl w-full",
+    "right": "border px-2 h-16 md:rounded-xl w-full rounded-r-xl"
   }
+
 
   return (
     <div className="flex flex-col gap-y-8 items-center justify-center h-[calc(100vh-128px)] relative">
@@ -95,6 +122,14 @@ export default function Search() {
               placeholder="Return date"
               value={toDate}
               setValue={setToDate}
+              relativePosition={shapeClass["centre"]}
+            />
+
+            <Dropdown
+              label="Passengers"
+              forId="passengers"
+              value={passengers}
+              setValue={setPassengers}
               relativePosition={shapeClass["right"]}
             />
           </div>
