@@ -19,6 +19,7 @@ global.fetch = jest.fn(() =>
 );
 
 describe("SearchComponent", () => {
+
   it("should redirect correctly when 'Search Flights' button is clicked", () => {
     const { getByText } = render(<Search />);
 
@@ -60,5 +61,7 @@ describe("SearchComponent", () => {
     expect(pushMock).toHaveBeenCalledWith(
       "/results?from=LHR&to=LGW&leave=2023-10-15&ret=2023-10-20"
     );
+
+
   });
 });

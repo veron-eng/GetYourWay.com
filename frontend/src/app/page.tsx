@@ -6,13 +6,40 @@ import TextInput from "./_components/TextInput";
 import DateInput from "./_components/DateInput";
 import DynamicTitle from "./_components/DynamicTitle";
 
-export default function Search() {
+export default function Search({
+    searchParams,
+  }: {
+    searchParams: { [key: string]: string | undefined };
+  }) {
+    const { from, to } = searchParams;
+    console.log(from,to)
+    
+    
   const [fromAirport, setFromAirport] = useState("");
   const [toAirport, setToAirport] = useState("");
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
 
   const router = useRouter();
+
+  useEffect(()=> {
+    if (from !== undefined){
+      setFromAirport(from)
+    }
+  
+    if (to !== undefined){
+      setToAirport(to)
+    }
+
+    return ()=>{
+      setToAirport("")
+      setFromAirport("")
+    }
+
+  },[])
+
+
+  
 
   const getAirportCode = (airport: string) => {
     return airport.substring(airport.length - 4, airport.length - 1);
@@ -49,6 +76,7 @@ export default function Search() {
     "centre": "border px-2 h-16 w-full md:rounded-xl",
     "right": "border px-2 rounded-r-xl md:rounded-xl h-16 w-full"
   }
+
 
   return (
     <div className="flex flex-col gap-y-8 items-center justify-center h-[calc(100vh-128px)] relative">
