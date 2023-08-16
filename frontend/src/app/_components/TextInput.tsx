@@ -26,6 +26,26 @@ function TextInput({
 	// const boxClass = shapeClass[relativePosition];
 	// console.log(boxClass);
 
+	const showSuggestedOption = async() =>{
+
+		if (value.length > 2) {
+			// const data = getMockAirports();
+			// TODO: uncomment this for production
+			const res = await fetch(
+			  `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
+			);
+			const data = await res.json();
+			if (data.error) throw new Error(data.error.message)
+			else if (data && data.response && data.response.airports) {
+				setSuggestedOptions(data.response.airports);
+			}
+	}
+	else {
+		// Clear suggestions for short input values
+		setSuggestedOptions([]);
+	}
+}
+
 	const handleChange = async (event: any) => {
 		try {
 			const value = event.target.value;
@@ -42,21 +62,8 @@ function TextInput({
 				return;
 			}
 
-			if (value.length > 2) {
-				const data = getMockAirports();
-				// TODO: uncomment this for production
-				// const res = await fetch(
-				//   `https://airlabs.co/api/v9/suggest?q=${value}&api_key=${process.env.NEXT_PUBLIC_AIRLABS_API_KEY}`
-				// );
-				// const data = await res.json();
-				if (data.error) throw new Error(data.error.message)
-				else if (data && data.response && data.response.airports) {
-					setSuggestedOptions(data.response.airports);
-				}
-			} else {
-				// Clear suggestions for short input values
-				setSuggestedOptions([]);
-			}
+			showSuggestedOption();
+
 
 			prevValue.current = value;
 		} catch (error) {
@@ -80,6 +87,12 @@ function TextInput({
 
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
+
+	useEffect(()=>{
+		if(value){
+			showSuggestedOption()
+		}
+	},[value])
 
 	return (
 		<div className="relative flex-1 flex flex-col">
@@ -124,5 +137,6 @@ function TextInput({
 		</div>
 	)
 }
+
 
 export default TextInput
