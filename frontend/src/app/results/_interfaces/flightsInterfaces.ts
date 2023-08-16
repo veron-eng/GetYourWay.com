@@ -13,15 +13,17 @@ export interface Flight {
   price: string;
 }
 
+export interface WeatherData {
+  avgHumidity: string;
+  avgTemperature: string;
+  icon: string;
+  maxTemperature: string;
+  maxWind: string;
+  minTemperature: string;
+}
+
 export interface FlightsData {
-  destinationWeather: {
-    avgHumidity: string;
-    avgTemperature: string;
-    icon: string;
-    maxTemperature: string;
-    maxWind: string;
-    minTemperature: string;
-  };
+  destinationWeather: WeatherData;
   flights: Flight[];
 }
 
