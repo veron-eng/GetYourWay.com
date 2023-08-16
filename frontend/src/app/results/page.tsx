@@ -10,7 +10,7 @@ export default function Results({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const { from, to, leave, ret } = searchParams;
+  const { from, to, leave, ret, passengers } = searchParams;
 
   const [flightsData, setFlightsData] = useState<any>([]);
   const [listViewSelected, setListViewSelected] = useState(true);
@@ -26,7 +26,7 @@ export default function Results({
   const getFlights = async () => {
     try {
       const result = await axios.get(
-        `http://localhost:8000/getFlights/${from}/${to}/${leave}/${ret}`
+        `http://localhost:8000/getFlights/${from}/${to}/${leave}/${ret}/${passengers}`
       );
       setFlightsData(result.data);
       console.log(result.data)

@@ -64,7 +64,9 @@ export default function Search({
         "&leave=" +
         fromDateFormatted +
         "&ret=" +
-        toDateFormatted
+        toDateFormatted +
+        "&passengers=" +
+        passengers
     );
   };
 
