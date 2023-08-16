@@ -97,6 +97,10 @@ const MapView = ({ flightsData }: MapComponentProps) => {
     lat: 51.4679914,
     lng: -0.455051,
   };
+  const [display1,setDisplay1] = useState(false);
+  const handleDisplay1 = (value: boolean) => {
+    setDisplay1(value)
+  }
 
   return (
     <>
@@ -104,6 +108,7 @@ const MapView = ({ flightsData }: MapComponentProps) => {
         <div className="flex h-[616px] rounded-lg bg-gray-200 p-2 justify-center border border-gray-300">
           <div id='weatherItems' className="w-1/4 bg-gray-100">
             <MapModal
+              display2={display1}
               isOpen={isMapModalOpen}
               onClose={closeMapModal}
               flights={flightsData.flights}
@@ -114,6 +119,8 @@ const MapView = ({ flightsData }: MapComponentProps) => {
           </div>
           <div className="w-3/4 justify-center">
             <MapContainer
+              weather={flightsData.destinationWeather}
+              handleDisplay={handleDisplay1}
               mapContainerStyle={mapContainerStyle}
               markerCenter={markerCenter}
               zoom={zoom}

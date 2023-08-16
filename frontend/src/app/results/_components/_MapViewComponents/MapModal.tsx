@@ -5,6 +5,7 @@ import { Flight, WeatherData } from "@/app/results/_interfaces/flightsInterfaces
 import JourneyCardContainer from "./JourneyCardContainer";
 
 const MapModal = ({
+  display2,
   isOpen,
   onClose,
   flights,
@@ -12,6 +13,7 @@ const MapModal = ({
   updateMarkerCenter,
   onAirportCodesReceived,
 }: {
+  display2: boolean,
   isOpen: any;
   onClose: any;
   flights: Flight[];
@@ -22,7 +24,6 @@ const MapModal = ({
   if (!isOpen) {
     return null;
   }
-
   const handleInspectClick = async (index: any) => {
     try {
       const Codes = [flights[index].journeys[0].departureAirport];
@@ -41,7 +42,7 @@ const MapModal = ({
     <div className="modal-overlay">
       <div className="modal-content">
         <h2 className="text-center font-bold ">Your Results:</h2>
-        <WeatherTable weather={weather} />
+        <WeatherTable weather={weather} display3 = {display2}/>
         <div className="modal-scrollable-content">
           {flights.map((flight: any, index: any) => (
             <JourneyCardContainer
