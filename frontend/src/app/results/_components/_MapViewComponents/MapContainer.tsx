@@ -24,6 +24,11 @@ function MapContainer({ weather, handleDisplay, mapContainerStyle, markerCenter,
     url: "https:"+weather.icon,
     // scaledSize: new google.maps.Size(80, 80)
   }
+  const customIcon2 = {
+    // url: "https://cdn.weatherapi.com/weather/64x64/day/356.png",
+    // url: "https://cdn.iconscout.com/icon/free/png-256/free-weather-2191838-1846632.png",
+    // scaledSize: new google.maps.Size(80, 80)
+  }
   const displayWeather = (value:boolean) => {
     handleDisplay(value)
   }
@@ -37,11 +42,13 @@ function MapContainer({ weather, handleDisplay, mapContainerStyle, markerCenter,
           center={markerCenter}//needs to be changed to destination + line 26
           zoom={zoom}
         >
-          <Marker position={markerCenter} icon = {customIcon}/>
+          <Marker position={markerCenter} />
           {markers.map((marker, index) => (
             <Marker
               onClick = {(e: google.maps.MapMouseEvent) => {displayWeather(true)}}
-              icon = {customIcon}
+              // icon = {customIcon}
+              icon = {index+1 == markers.length ? customIcon : undefined}
+              label= {index+1 == markers.length ? "" : (index+1).toString()}
               key={index}
               position={{
                 lat: marker.lat,
