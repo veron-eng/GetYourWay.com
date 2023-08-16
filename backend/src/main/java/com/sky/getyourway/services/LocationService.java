@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class LocationService {
 
-    private String googleMapsApiKey = "AIzaSyBQ-7FRus3W2IvCX1Fr3Eis77q0CdL-pOs";
+    private String googleMapsApiKey = System.getenv("GOOGLE_MAPS_API_KEY");
 
     public Location getLocation(String code){
         String apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?" +

@@ -11,6 +11,7 @@ public class Location {
         this.lon = lon;
     }
 
+
     public double getLat() {
         return lat;
     }

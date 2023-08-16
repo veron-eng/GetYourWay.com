@@ -8,6 +8,16 @@ public class FlightData {
     List<Journey> journeys = new ArrayList<>();
 //    private String flightNumber;  //  concat flight carrier code and number
 //    private String duration; // need to do string operations
+
+
+    public FlightData(List<Journey> journeys, String price) {
+        this.journeys = journeys;
+        this.price = price;
+    }
+
+    public FlightData() {
+    }
+
     private String price;
 
     public List<Journey> getJourneys() {
