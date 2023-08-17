@@ -36,7 +36,7 @@ export default function Search({
       setFromAirport("")
     }
 
-  },[])
+  }, [from, to])
 
   const getAirportCode = (airport: string) => {
     return airport.substring(airport.length - 4, airport.length - 1);

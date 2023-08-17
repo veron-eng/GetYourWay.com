@@ -38,13 +38,17 @@ const MapModal = ({
     }
   };
 
+  if (!flights) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <h2 className="text-center font-bold ">Your Results:</h2>
         <WeatherTable weather={weather} display3 = {display2}/>
         <div className="modal-scrollable-content">
-          {flights.map((flight: any, index: any) => (
+          {flights?.map((flight: any, index: any) => (
             <JourneyCardContainer
               key={index}
               index={index}
