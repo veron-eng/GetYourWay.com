@@ -11,7 +11,7 @@ export default function JourneyCard({ index, journey, updateMarkerCenter }: Jour
   const handleInspectClick = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/getLocation/${journey.arrivalAirport}+airport`
+        `http://${process.env.NEXT_PUBLIC_SERVER}:8000/getLocation/${journey.arrivalAirport}+airport`
       );
       const { lat, lon } = response.data;
       if (lat && lon) {
