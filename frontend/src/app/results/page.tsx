@@ -29,10 +29,10 @@ export default function Results({
         `http://13.43.55.166:8000/getFlights/${from}/${to}/${leave}/${ret}/${passengers}`
       );
       setFlightsData(result.data);
-    } catch (error) {
+    } catch (error: any) {
       alert("Sorry, no flights found for your given locations and dates.");
       router.push("/");
-      console.log(error);
+      console.log(error.message);
     }
   };
 
