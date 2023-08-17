@@ -28,7 +28,7 @@ public class GlobalCors {
 
                 registry.addMapping("/**")
 
-                        .allowedOrigins("*")
+                        .allowedOrigins("http://localhost:3000", "http://13.43.55.166:3000" , "http://13.43.55.166", "http://13.43.55.166:8080")
 
                         .allowedMethods("*")
 
