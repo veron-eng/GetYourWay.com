@@ -7,11 +7,15 @@ interface JourneyCardProps {
   updateMarkerCenter: any;
 }
 
-export default function JourneyCard({ index, journey, updateMarkerCenter }: JourneyCardProps) {
+export default function JourneyCard({
+  index,
+  journey,
+  updateMarkerCenter,
+}: JourneyCardProps) {
   const handleInspectClick = async () => {
     try {
       const response = await axios.get(
-        `http://${process.env.NEXT_PUBLIC_SERVER}:8000/getLocation/${journey.arrivalAirport}+airport`
+        `http://13.43.55.166:8000/getLocation/${journey.arrivalAirport}+airport`
       );
       const { lat, lon } = response.data;
       if (lat && lon) {

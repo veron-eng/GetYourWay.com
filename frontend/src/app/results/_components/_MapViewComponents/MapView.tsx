@@ -5,7 +5,7 @@ import { FlightsData } from "../../_interfaces/flightsInterfaces";
 import MapContainer from "./MapContainer";
 
 interface MapComponentProps {
-  flightsData: FlightsData
+  flightsData: FlightsData;
 }
 
 const MapView = ({ flightsData }: MapComponentProps) => {
@@ -29,7 +29,7 @@ const MapView = ({ flightsData }: MapComponentProps) => {
     for (let i = 0; i < codes.length; i++) {
       try {
         const response = await axios.get(
-          `http://${process.env.NEXT_PUBLIC_SERVER}:8000/getLocation/${codes[i]}+airport`
+          `http://13.43.55.166:8000/getLocation/${codes[i]}+airport`
         );
         const { lat, lon } = response.data;
         if (lat && lon) {
@@ -94,10 +94,10 @@ const MapView = ({ flightsData }: MapComponentProps) => {
     lng: -0.455051,
   };
 
-  const [display1,setDisplay1] = useState(false);
+  const [display1, setDisplay1] = useState(false);
   const handleDisplay1 = (value: boolean) => {
-    setDisplay1(value)
-  }
+    setDisplay1(value);
+  };
 
   if (flightsData === undefined || flightsData === null) {
     return <>Loading...</>;
@@ -107,7 +107,7 @@ const MapView = ({ flightsData }: MapComponentProps) => {
     <>
       <div>
         <div className="flex h-[616px] rounded-lg bg-gray-200 p-2 justify-center border border-gray-300">
-          <div id='weatherItems' className="w-1/4 bg-gray-100">
+          <div id="weatherItems" className="w-1/4 bg-gray-100">
             <MapModal
               display2={display1}
               isOpen={isMapModalOpen}

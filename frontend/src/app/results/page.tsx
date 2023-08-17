@@ -26,7 +26,7 @@ export default function Results({
   const getFlights = async () => {
     try {
       const result = await axios.get(
-        `http://${process.env.NEXT_PUBLIC_SERVER}:8000/getFlights/${from}/${to}/${leave}/${ret}/${passengers}`
+        `http://13.43.55.166:8000/getFlights/${from}/${to}/${leave}/${ret}/${passengers}`
       );
       setFlightsData(result.data);
     } catch (error) {
