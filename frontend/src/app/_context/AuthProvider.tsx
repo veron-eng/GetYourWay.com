@@ -7,8 +7,7 @@ import { auth } from "@/firebaseAuth";
 export const AuthContext = createContext<{
   isSignedIn: boolean | undefined;
   user: User | undefined;
-}>({isSignedIn: undefined, user: undefined});
-
+}>({ isSignedIn: undefined, user: undefined });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean | undefined>(undefined);
@@ -29,6 +28,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{isSignedIn, user}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isSignedIn, user }}>
+      {children}
+    </AuthContext.Provider>
   );
 };

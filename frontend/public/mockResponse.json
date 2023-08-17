@@ -1,0 +1,382 @@
+{
+  "flights": [
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T11:25:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T17:05:00",
+                  "duration": "PT3H40M",
+                  "flightNumber": "PK5980"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T13:10:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T15:05:00",
+                  "duration": "PT3H55M",
+                  "flightNumber": "PK5985"
+              }
+          ],
+          "price": "1786.28"
+      },
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T11:25:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T17:05:00",
+                  "duration": "PT3H40M",
+                  "flightNumber": "PK5980"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T13:55:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T16:00:00",
+                  "duration": "PT4H5M",
+                  "flightNumber": "PK5931"
+              }
+          ],
+          "price": "1786.28"
+      },
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T11:25:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T17:05:00",
+                  "duration": "PT3H40M",
+                  "flightNumber": "PK5980"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T14:50:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T16:45:00",
+                  "duration": "PT3H55M",
+                  "flightNumber": "PK5971"
+              }
+          ],
+          "price": "1786.28"
+      },
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T06:45:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T12:35:00",
+                  "duration": "PT3H50M",
+                  "flightNumber": "PK5988"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T13:10:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T15:05:00",
+                  "duration": "PT3H55M",
+                  "flightNumber": "PK5985"
+              }
+          ],
+          "price": "1786.28"
+      },
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T11:25:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T17:05:00",
+                  "duration": "PT3H40M",
+                  "flightNumber": "PK5980"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T18:30:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T20:35:00",
+                  "duration": "PT4H5M",
+                  "flightNumber": "PK5983"
+              }
+          ],
+          "price": "1786.28"
+      },
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T06:45:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T12:35:00",
+                  "duration": "PT3H50M",
+                  "flightNumber": "PK5988"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T13:55:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T16:00:00",
+                  "duration": "PT4H5M",
+                  "flightNumber": "PK5931"
+              }
+          ],
+          "price": "1786.28"
+      },
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T06:45:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T12:35:00",
+                  "duration": "PT3H50M",
+                  "flightNumber": "PK5988"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T14:50:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T16:45:00",
+                  "duration": "PT3H55M",
+                  "flightNumber": "PK5971"
+              }
+          ],
+          "price": "1786.28"
+      },
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T11:25:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T17:05:00",
+                  "duration": "PT3H40M",
+                  "flightNumber": "PK5980"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T20:20:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T22:25:00",
+                  "duration": "PT4H5M",
+                  "flightNumber": "PK5987"
+              }
+          ],
+          "price": "1786.28"
+      },
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T06:45:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T12:35:00",
+                  "duration": "PT3H50M",
+                  "flightNumber": "PK5988"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T18:30:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T20:35:00",
+                  "duration": "PT4H5M",
+                  "flightNumber": "PK5983"
+              }
+          ],
+          "price": "1786.28"
+      },
+      {
+          "journeys": [
+              {
+                  "departureAirport": "LHR",
+                  "departureScheduledTime": "2023-08-20T06:45:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-20T12:35:00",
+                  "duration": "PT3H50M",
+                  "flightNumber": "PK5988"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-20T20:15:00",
+                  "arrivalAirport": "ISB",
+                  "arrivalScheduledTime": "2023-08-21T03:35:00",
+                  "duration": "PT5H20M",
+                  "flightNumber": "PK5710"
+              },
+              {
+                  "departureAirport": "ISB",
+                  "departureScheduledTime": "2023-08-24T05:05:00",
+                  "arrivalAirport": "IST",
+                  "arrivalScheduledTime": "2023-08-24T09:00:00",
+                  "duration": "PT5H55M",
+                  "flightNumber": "PK5711"
+              },
+              {
+                  "departureAirport": "IST",
+                  "departureScheduledTime": "2023-08-24T20:20:00",
+                  "arrivalAirport": "LHR",
+                  "arrivalScheduledTime": "2023-08-24T22:25:00",
+                  "duration": "PT4H5M",
+                  "flightNumber": "PK5987"
+              }
+          ],
+          "price": "1786.28"
+      }
+  ],
+  "destinationWeather": {
+      "maxTemperature": "34.2",
+      "minTemperature": "24.4",
+      "avgTemperature": "29.2",
+      "maxWind": "6.5",
+      "avgHumidity": "67.0",
+      "icon": "//cdn.weatherapi.com/weather/64x64/day/302.png"
+  }
+}

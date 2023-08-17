@@ -1,0 +1,8 @@
+.modal-scrollable-content {
+  max-height: 430px;
+  overflow-y: auto;
+}
+
+.journey-card-container {
+  margin-bottom: 10px;
+}
