@@ -15,7 +15,7 @@ export default function JourneyCard({
   const handleInspectClick = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/getLocation/${journey.arrivalAirport}+airport`
+        `http://13.43.55.166:8000/getLocation/${journey.arrivalAirport}+airport`
       );
       const { lat, lon } = response.data;
       if (lat && lon) {
