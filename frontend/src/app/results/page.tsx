@@ -26,7 +26,7 @@ export default function Results({
   const getFlights = async () => {
     try {
       const result = await axios.get(
-        `http://13.43.55.166:8000/getFlights/${from}/${to}/${leave}/${ret}/${passengers}`
+        `http://localhost:8000/getFlights/${from}/${to}/${leave}/${ret}/${passengers}`
       );
       setFlightsData(result.data);
     } catch (error: any) {

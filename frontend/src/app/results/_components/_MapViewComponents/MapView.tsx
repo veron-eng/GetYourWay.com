@@ -29,7 +29,7 @@ const MapView = ({ flightsData }: MapComponentProps) => {
     for (let i = 0; i < codes.length; i++) {
       try {
         const response = await axios.get(
-          `http://13.43.55.166:8000/getLocation/${codes[i]}+airport`
+          `http://localhost:8000/getLocation/${codes[i]}+airport`
         );
         const { lat, lon } = response.data;
         if (lat && lon) {
