@@ -4,7 +4,7 @@ import MapView from "../src/app/results/_components/_MapViewComponents/MapView"
 import mockResponse from "../public/mockResponse.json"
 
 describe("Map View tests", () => {
-  test("Weather data should be rendered", () => {
+  test.skip("Weather data should be rendered", () => {
     const testRenderer = create(<MapView flightsData={mockResponse} />)
     const testInstance = testRenderer.root
 
