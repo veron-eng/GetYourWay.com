@@ -22,7 +22,7 @@ public class WeatherApi {
 
     public WeatherData getWeatherData(String destination, String arrivalDate, long timeDifference){
         String returnedData = "";
-        String weatherApiKey = System.getenv("GYW_WEATHER_API_KEY");
+        String weatherApiKey = "ed347570bb584fb782d235200231708";//System.getenv("GYW_WEATHER_API_KEY");
 
         if (timeDifference < 14){
             // 14-day forecast

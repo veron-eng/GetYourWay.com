@@ -14,7 +14,7 @@ public class LocationServiceTest {
   @Autowired
     LocationService locationService;
 
-  String googleMapsApiKey = System.getenv("GOOGLE_MAPS_API_KEY");
+  String googleMapsApiKey = "AIzaSyBQ-7FRus3W2IvCX1Fr3Eis77q0CdL-pOs";//System.getenv("GOOGLE_MAPS_API_KEY");
 
   @Test
     public void getLocationTestSuccessful(){

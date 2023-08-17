@@ -25,8 +25,8 @@ public class AviationApiTests {
     public void populateFlightDataTest() throws ResponseException {
         // make api call and get the data as a parameters
         FlightOfferSearch[] flightOffersSearches;
-        String apiId = System.getenv("GYW_FLIGHT_API_ID");
-        String apiSecret = System.getenv("GYW_FLIGHT_API_SECRET");
+        String apiId = "uA9SdKENutAxwbX9psZOJotjPtbxYm2I";//System.getenv("GYW_FLIGHT_API_ID");
+        String apiSecret = "Xo9GMBOAkytZcLJz";//System.getenv("GYW_FLIGHT_API_SECRET");
 
         Amadeus amadeus = Amadeus
                 .builder(apiId, apiSecret)
