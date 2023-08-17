@@ -11,7 +11,7 @@ function DynamicTitle() {
 		}, 8000);
 
 		return () => clearInterval(interval);
-	}, []);
+	}, [words.length]);
 	
 	return (
 		<h1 className="relative md:text-4xl text-7xl text-glow  text-white font-bold w-full tracking-wide">

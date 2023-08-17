@@ -76,10 +76,6 @@ const MapView = ({ flightsData }: MapComponentProps) => {
     setMarkers([]);
   };
 
-  if (flightsData === undefined || flightsData === null) {
-    return <>Loading...</>;
-  }
-
   const openMapModal = () => {
     setIsMapModalOpen(true);
   };
@@ -97,9 +93,14 @@ const MapView = ({ flightsData }: MapComponentProps) => {
     lat: 51.4679914,
     lng: -0.455051,
   };
+
   const [display1,setDisplay1] = useState(false);
   const handleDisplay1 = (value: boolean) => {
     setDisplay1(value)
+  }
+
+  if (flightsData === undefined || flightsData === null) {
+    return <>Loading...</>;
   }
 
   return (
